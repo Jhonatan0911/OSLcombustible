@@ -1,0 +1,26 @@
+.font-menu{
+    font-size: 45px;
+}
+
+.logo {
+    margin: 0% !important;
+    color:#fff !important;
+
+}
+.navbar {
+    background: #B3404A;
+    color: #fff !important;
+    height: 80px !important;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    margin-top: 2px;
+    margin-right: 0 !important;
+    margin-bottom: 12px;
+    margin-left: 0 !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
+

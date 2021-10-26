@@ -1,0 +1,28 @@
+.botones{
+    height: 70vh !important;
+}
+.boton{
+    height: 250px !important;
+    width: 250px !important; 
+    text-align: center !important;
+    padding-top: 30%; 
+}
+.boton img{
+    margin-bottom: 10px !important;
+}
+.btnosl{
+    position:  relative !important;
+    width: 90% !important;
+    background-color: #B3404A; 
+    color: #fff; 
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    height: 40px !important;
+    border-color: #B3404A !important;
+
+}
+.imagen{
+    position:  relative !important;
+    width: 90% !important;
+    background-color: #fff !important;
+}
