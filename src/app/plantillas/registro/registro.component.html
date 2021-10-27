@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div  class="container py-3">
     <div class="container my-5">
-        <div class="col-12 col-md-5 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
+        <div class="col-12 col-md-7 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
             <div class="card cardosl">
                 <div class="card-body py-5">
                     <div class="px-2">
@@ -10,19 +10,62 @@
                         <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                         <hr>
                             <div>
-                                <div class="form-group">
-                                    <p>Cliente <b class="text-danger">*</b></p>
-                                    <select class="form-control" >
-                                        <option value="1">Cliente 1</option>
-                                        <option value="2">Cliente 2</option>
-                                    </select>
-                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <p>Cliente <b class="text-danger">*</b></p>
+                                        <select class="form-control" >
+                                            <option value="1">Cliente 1</option>
+                                            <option value="2">Cliente 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <p>Vehiculo <b class="text-danger">*</b></p>
+                                        <select class="form-control" >
+                                            <option value="1">Vehiuclo ABC-345</option>
+                                            <option value="2">Vehiuclo HJF-489</option>
+                                        </select>
+                                    </div>
+                                </div>  
                                 <div class="form-group">
                                     <p>Operacion<b class="text-danger">*</b></p>
                                     <select class="form-control" >
                                         <option value="1">Operacion 1</option>
                                         <option value="2">Operacion 2</option>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <p>No. de galones <b class="text-danger">*</b></p>
+                                    <input type="number"class="form-control" placeholder="Ej: 38">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <p>Lectura Inicial<b class="text-danger">*</b></p>
+                                        <input type="number"class="form-control" placeholder="Ej: 39581,2">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <p>Lectura Final <b class="text-danger">*</b></p>
+                                        <input type="number"class="form-control" placeholder="Ej: 39619,4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Valor <b class="text-danger">*</b></p>
+                                    <input type="number"class="form-control" placeholder="Ej: $200.000">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <p>Conductor<b class="text-danger">*</b></p>
+                                        <input type="text"class="form-control" placeholder="Ej: Jorge">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <p>Operario <b class="text-danger">*</b></p>
+                                        <input type="text"class="form-control" placeholder="Ej: Fernando">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Observaciones<b class="text-danger">*</b></p>
+                                    <textarea class="form-control" >
+                                        
+                                    </textarea>
                                 </div>
                             </div>
 

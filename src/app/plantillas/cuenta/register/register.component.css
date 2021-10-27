@@ -77,14 +77,17 @@ a{
     font-weight: 400;
     transition-duration:300ms;
 }
+
 label:focus-within > span,
 input:not(:placeholder-shown) + span{
     color:#B3404A;
     transform:translateY(0px);
 }
+
 label:focus-within{
     border-bottom:2px solid #B3404A !important;
 }
+
 .btn-login{
     margin: 10px 0 0;
     min-width: 180px;
