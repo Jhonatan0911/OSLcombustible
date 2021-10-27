@@ -5,14 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './plantillas/cuenta/login/login.component';
 import { RegisterComponent } from './plantillas/cuenta/register/register.component';
-import { HomeComponent } from './plantillas/home/home/home.component';
+import { HomeComponent } from './plantillas/home/home.component';
 import { HeaderComponent } from './componentes/header/header/header.component';
 import { FooterComponent } from './componentes/footer/footer/footer.component';
-import { InformeComponent } from './plantillas/informe/informe/informe.component';
-import { OperacionComponent } from './plantillas/operacion/operacion/operacion.component';
-import { RegistroComponent } from './plantillas/registro/registro/registro.component';
+import { InformeComponent } from './plantillas/informe/informe.component';
+import { OperacionComponent } from './plantillas/operacion/operacion.component';
+import { RegistroComponent } from './plantillas/registro/registro.component';
 import { UsuarioComponent } from './plantillas/cliente/usuario/usuario.component';
-import { UserComponent } from './plantillas/cliente/placa/user/user.component';
+import { UserComponent } from './plantillas/cliente/placa/user.component';
 
 @NgModule({
   declarations: [

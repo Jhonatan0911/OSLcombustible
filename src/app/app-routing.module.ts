@@ -4,13 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 //componentes
 import { LoginComponent } from './plantillas/cuenta/login/login.component';
 import { RegisterComponent } from './plantillas/cuenta/register/register.component';
-import { HomeComponent } from './plantillas/home/home/home.component';
+import { HomeComponent } from './plantillas/home/home.component';
 //vistas
-import { InformeComponent } from './plantillas/informe/informe/informe.component';
-import { OperacionComponent } from './plantillas/operacion/operacion/operacion.component';
-import { RegistroComponent } from './plantillas/registro/registro/registro.component';
+import { InformeComponent } from './plantillas/informe/informe.component';
+import { OperacionComponent } from './plantillas/operacion/operacion.component';
+import { RegistroComponent } from './plantillas/registro/registro.component';
 import { UsuarioComponent } from './plantillas/cliente/usuario/usuario.component';
-import { UserComponent } from './plantillas/cliente/placa/user/user.component';
+import { UserComponent } from './plantillas/cliente/placa/user.component';
 
 
 const routes: Routes = [
