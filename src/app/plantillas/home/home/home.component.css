@@ -19,7 +19,11 @@
     border-bottom-right-radius: 10px !important;
     height: 40px !important;
     border-color: #B3404A !important;
+    z-index: 999;
 
+}
+.btnosl::after, .btnosl::before{
+    border-color: #B3404A !important;
 }
 .imagen{
     position:  relative !important;
