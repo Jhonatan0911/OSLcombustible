@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuarioComponent},
 
   //vista en la que se crean los usuarios
-  { path: 'user', component: UsuarioComponent},
+  { path: 'user', component: UserComponent},
 
 
 ];
