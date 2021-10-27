@@ -1,1 +1,41 @@
-<p>registro works!</p>
+<app-header></app-header>
+<div  class="container py-3">
+    <div class="container my-5">
+        <div class="col-12 col-md-5 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
+            <div class="card cardosl">
+                <div class="card-body py-5">
+                    <div class="px-2">
+                        <p class="h3 font-weight-bold text-center titleosl">Crear registro</p>
+                        <br>
+                        <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
+                        <hr>
+                            <div>
+                                <div class="form-group">
+                                    <p>Cliente <b class="text-danger">*</b></p>
+                                    <select class="form-control" >
+                                        <option value="1">Cliente 1</option>
+                                        <option value="2">Cliente 2</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p>Operacion<b class="text-danger">*</b></p>
+                                    <select class="form-control" >
+                                        <option value="1">Operacion 1</option>
+                                        <option value="2">Operacion 2</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        <div>
+                            <button class="btn btn-osl btn-block" >Crear registro</button>
+
+
+                            <button class="btn btn-dark btn-block" routerLink="/cuenta/login">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
