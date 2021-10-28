@@ -35,6 +35,13 @@ export class ClientesService {
     return this.http.post<transaccion>(this.API+'clientes',parametros);
   }
 
+  agregarplaca(id: any, placa:any){
+    let parametros = {
+      placa: placa,
+    }
+    return this.http.post<transaccion>(this.API+'clientes/'+id+'/placa',parametros);
+  }
+
   carga() {
     if (localStorage.getItem('cliente')) {
       this.cliente = localStorage.getItem('cliente');

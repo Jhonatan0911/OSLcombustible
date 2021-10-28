@@ -11,6 +11,9 @@ import { CuentaService } from 'src/app/servicios/cuenta.service';
 export class UsuarioComponent implements OnInit {
 
   clientes: any;
+  clientedata: any = [];
+  placa:any = "";
+  id: any = ""; 
 
   constructor(
     public ClientesService:ClientesService,
@@ -26,6 +29,15 @@ export class UsuarioComponent implements OnInit {
   cargar(){
     this.ClientesService.listar().subscribe((response: any) => {
       this.clientes = response;
+      console.log(response);
+    })
+  }
+  cargadatos(cliente:any){
+    this.clientedata = cliente;
+    this.id = this.clientedata._id;
+  }
+  agregarplaca(placa:any){
+    this.ClientesService.agregarplaca(this.id, placa).subscribe((response: any) => {
       console.log(response);
     })
   }
