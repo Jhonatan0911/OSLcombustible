@@ -2,10 +2,11 @@
     height: 70vh !important;
 }
 .boton{
-    height: 250px !important;
-    width: 250px !important; 
+    /* height: 250px !important; */
+    /* width: 250px !important;  */
     text-align: center !important;
     padding-top: 30%; 
+
 }
 .boton img{
     margin-bottom: 10px !important;
@@ -20,7 +21,6 @@
     height: 40px !important;
     border-color: #B3404A !important;
     z-index: 999;
-
 }
 .btnosl::after, .btnosl::before{
     border-color: #B3404A !important;
