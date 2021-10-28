@@ -19,6 +19,9 @@ export class LoginComponent implements OnInit {
   datos: any = [];
 
   ngOnInit(): void {
+    if(this.CuentaService.validarLogueo() == true){
+      window.location.href = '/home';
+    } 
   }
   login() {
     this.CuentaService.login(this.email, this.password).subscribe((response) => {

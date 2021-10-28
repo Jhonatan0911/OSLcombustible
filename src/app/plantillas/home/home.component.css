@@ -30,3 +30,11 @@
     width: 90% !important;
     background-color: #fff !important;
 }
+@media only screen and (max-width: 500px) {
+    .boton{
+        height: 170px !important;
+        width: 170px !important; 
+        margin-right: 0px !important;
+    }
+    
+}

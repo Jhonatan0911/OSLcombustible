@@ -20,8 +20,7 @@ export class HeaderComponent implements OnInit {
     this.user = JSON.parse(this.user);
   }
   logout(){
-    localStorage.removeItem('idcuenta');
-    localStorage.removeItem('datos');
+    localStorage.removeItem('datosUser');
   }
 
 }
