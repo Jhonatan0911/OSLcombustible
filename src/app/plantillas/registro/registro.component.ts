@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RegistrosService } from 'src/app/servicios/registros.service';
 import { ClientesService } from 'src/app/servicios/clientes.service';
 import { OperacionesService } from 'src/app/servicios/operaciones.service';
+import { CuentaService } from 'src/app/servicios/cuenta.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class RegistroComponent implements OnInit {
     public ClientesService:ClientesService,
     public RegistrosService: RegistrosService,
     public OperacionesService: OperacionesService,
+    public CuentaService: CuentaService,
 
   ) { }
   cliente: any;
@@ -29,6 +31,7 @@ export class RegistroComponent implements OnInit {
   Observaciones: any;
 
   ngOnInit(): void {
+    this.CuentaService.Verifylogin();
     this.cargaroperaciones();
     this.cargaclientes();
   }

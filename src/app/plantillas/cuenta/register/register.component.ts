@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CuentaService } from 'src/app/servicios/cuenta.service';
+
 
 @Component({
   selector: 'app-register',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public CuentaService: CuentaService,
+  ) { }
 
   ngOnInit(): void {
+    this.CuentaService.Verifylogin();
   }
 
 }

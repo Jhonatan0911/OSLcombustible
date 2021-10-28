@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CuentaService } from 'src/app/servicios/cuenta.service';
+
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public CuentaService: CuentaService,
+  ) { }
+
+  user: any;
 
   ngOnInit(): void {
+    this.CuentaService.Verifylogin();
+    this.user = localStorage.getItem("datos");
   }
 
 }

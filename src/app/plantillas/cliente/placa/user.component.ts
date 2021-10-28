@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from 'src/app/servicios/clientes.service';
+import { CuentaService } from 'src/app/servicios/cuenta.service';
+
 
 
 @Component({
@@ -11,6 +13,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     public ClientesService: ClientesService,
+    public CuentaService: CuentaService,
   ) { }
 
   nombre: string = "";
@@ -18,6 +21,7 @@ export class UserComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.CuentaService.Verifylogin();
   }
 
   crear(){
