@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrosService } from 'src/app/servicios/registros.service';
+import { ClientesService } from 'src/app/servicios/clientes.service';
+import { OperacionesService } from 'src/app/servicios/operaciones.service';
+
 
 @Component({
   selector: 'app-registro',
@@ -9,7 +12,10 @@ import { RegistrosService } from 'src/app/servicios/registros.service';
 export class RegistroComponent implements OnInit {
 
   constructor(
+    public ClientesService:ClientesService,
     public RegistrosService: RegistrosService,
+    public OperacionesService: OperacionesService,
+
   ) { }
   cliente: any;
   vehiculo: any;
@@ -23,6 +29,20 @@ export class RegistroComponent implements OnInit {
   Observaciones: any;
 
   ngOnInit(): void {
+    this.cargaroperaciones();
+    this.cargaclientes();
+  }
+  cargaroperaciones(){
+    this.OperacionesService.listar().subscribe((response: any) => {
+      this.operacion = response;
+      console.log(response);
+    })
+  }
+  cargaclientes(){
+    this.ClientesService.listar().subscribe((response: any) => {
+      this.cliente = response;
+      console.log(response);
+    })
   }
 
 }

@@ -13,9 +13,8 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <p>Cliente <b class="text-danger">*</b></p>
-                                        <select class="form-control" [(ngModel)]="cliente">
-                                            <option value="1">Cliente 1</option>
-                                            <option value="2">Cliente 2</option>
+                                        <select class="form-control" [(ngModel)]="cliente" >
+                                            <option *ngFor="let cli of this.cliente" value="{{cli.name}}">{{cli.name}}</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
@@ -28,9 +27,8 @@
                                 </div>  
                                 <div class="form-group">
                                     <p>Operacion<b class="text-danger">*</b></p>
-                                    <select class="form-control" [(ngModel)]="operacion">
-                                        <option value="1">Operacion 1</option>
-                                        <option value="2">Operacion 2</option>
+                                    <select class="form-control" [(ngModel)]="operacion" >
+                                        <option *ngFor="let op of this.operacion" value="{{op.name}}">{{op.name}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
