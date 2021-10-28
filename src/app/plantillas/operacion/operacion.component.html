@@ -14,20 +14,24 @@
                                     <p>Nombre de la operacion<b class="text-danger">*</b></p>
                                     <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
                                 </div>
+                                <br>
                                 <div class="form-group">
                                     <p>Detalles<b class="text-danger">*</b></p>
                                     <textarea class="form-control" [(ngModel)]="detalle">
                                         
                                     </textarea>
                                 </div>
+                                <br>
                             </div>
 
-                        <div>
-                            <button class="btn btn-osl btn-block" (click)="crear();" >Crear operación</button>
-
-
-                            <button class="btn btn-dark btn-block" routerLink="/home">Cancelar</button>
-                        </div>
+                        <div class="row">
+                            <div class="col-6 col-md-6">
+                                <button class="btn btn-osl btn-block" (click)="crear()">Crear operación</button>
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
+                            </div>
+                        </div>    
                     </div>
                 </div>
             </div>

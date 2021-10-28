@@ -41,13 +41,14 @@ export class CuentaService {
     return this.http.post<transaccion>(this.API+'usuarios/login',parametros);
   }
 
-  cuenta() {
-    let parametros = new HttpParams()
-      .append('modulo', 'cuenta')
-      .append('accion', 'cuenta')
-      .append('token', this.id);
-
-    return this.http.post<transaccion>(this.API, parametros);
+  cuenta( name:any, email: any, password: any) {
+    let parametros = {
+      name: name,
+      email: email,
+      password: password,
+      status: true,
+    }
+    return this.http.post<transaccion>(this.API+'usuarios', parametros);
   }
   
 

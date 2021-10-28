@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CuentaService } from 'src/app/servicios/cuenta.service';
+
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public CuentaService: CuentaService,
+  ) { }
+
+  user: any;
 
   ngOnInit(): void {
+    this.user = localStorage.getItem("datos");
+  }
+  logout(){
+    localStorage.removeItem('idcuenta');
+    localStorage.removeItem('datos');
   }
 
 }

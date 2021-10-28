@@ -25,13 +25,18 @@
                 </ul>
         
                 <!-- Derecha -->
-                <div style="text-align: center; position: relative;">
+                <div style="text-align: center; position: relative; position: absolute;
+                right: 10%;">
                     <ul class="navbar-nav">
-                    <div style="display: block; text-align: center;">
-                    </div>
-            
-                    <div class="d-none d-md-block" style="display: block; text-align: center;font-size: 12px !important;">
-                    </div>
+                        <div class="dropdown" *ngIf="this.CuentaService.validarLogueo() == true">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{user}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Editar cuenta</a></li>
+                              <li><a class="dropdown-item" href="#" (click)="logout()">Cerrar sesion</a></li>
+                            </ul>
+                        </div>
                     </ul>
                 </div>
             </div>

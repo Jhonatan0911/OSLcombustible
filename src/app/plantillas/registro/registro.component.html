@@ -10,16 +10,16 @@
                         <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                         <hr>
                             <div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
                                         <p>Cliente <b class="text-danger">*</b></p>
-                                        <select class="form-control" [(ngModel)]="cliente" >
+                                        <select class="form-select" [(ngModel)]="cliente" >
                                             <option *ngFor="let cli of this.cliente" value="{{cli.name}}">{{cli.name}}</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="col-6 col-md-6">
                                         <p>Vehiculo <b class="text-danger">*</b></p>
-                                        <select class="form-control" [(ngModel)]="vehiculo">
+                                        <select class="form-select" [(ngModel)]="vehiculo">
                                             <option value="1">Vehiuclo ABC-345</option>
                                             <option value="2">Vehiuclo HJF-489</option>
                                         </select>
@@ -27,7 +27,7 @@
                                 </div>  
                                 <div class="form-group">
                                     <p>Operacion<b class="text-danger">*</b></p>
-                                    <select class="form-control" [(ngModel)]="operacion" >
+                                    <select class="form-select" [(ngModel)]="operacion" >
                                         <option *ngFor="let op of this.operacion" value="{{op.name}}">{{op.name}}</option>
                                     </select>
                                 </div>
@@ -35,12 +35,12 @@
                                     <p>No. de galones <b class="text-danger">*</b></p>
                                     <input type="number" [(ngModel)]="galones" class="form-control" placeholder="Ej: 38">
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
                                         <p>Lectura Inicial<b class="text-danger">*</b></p>
                                         <input type="number" [(ngModel)]="l_inicial" class="form-control" placeholder="Ej: 39581,2">
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="col-6 col-md-6">
                                         <p>Lectura Final <b class="text-danger">*</b></p>
                                         <input type="number" [(ngModel)]="l_final" class="form-control" placeholder="Ej: 39619,4">
                                     </div>
@@ -49,12 +49,12 @@
                                     <p>Valor <b class="text-danger">*</b></p>
                                     <input type="number" [(ngModel)]="valor" class="form-control" placeholder="Ej: $200.000">
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
                                         <p>Conductor<b class="text-danger">*</b></p>
                                         <input type="text" [(ngModel)]="conductor" class="form-control" placeholder="Ej: Jorge">
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="col-6 col-md-6">
                                         <p>Operario <b class="text-danger">*</b></p>
                                         <input type="text" [(ngModel)]="operario" class="form-control" placeholder="Ej: Fernando">
                                     </div>
@@ -68,10 +68,18 @@
                             </div>
 
                         <div>
-                            <button class="btn btn-osl btn-block" (click)="RegistrosService.agregar(cliente, vehiculo, operacion, galones, l_inicial, l_final, valor, conductor, operario, Observaciones);">Crear registro</button>
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <button class="btn btn-osl" (click)="RegistrosService.agregar(cliente, vehiculo, operacion, galones, l_inicial, l_final, valor, conductor, operario, Observaciones);">Crear registro</button>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
+                                </div>
+                            </div>
+                            
 
 
-                            <button class="btn btn-dark btn-block" routerLink="/home">Cancelar</button>
+                            
                         </div>
                     </div>
                 </div>

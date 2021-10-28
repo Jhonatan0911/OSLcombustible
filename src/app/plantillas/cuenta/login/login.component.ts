@@ -16,7 +16,6 @@ export class LoginComponent implements OnInit {
   ) { }
   email: string = "";
   password: string = "";
-  pais: any = [];
   datos: any = [];
 
   ngOnInit(): void {
@@ -25,57 +24,35 @@ export class LoginComponent implements OnInit {
     this.CuentaService.login(this.email, this.password).subscribe((response) => {
       let datos: any = [];
       datos = response;
-      console.log("holap",datos)
+      console.log("response",datos)
       if (datos.status == 404) {
         this.password = " ";
         this.email = " ";
         Swal.fire({
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
+          position: 'top-end',
+          icon: 'error',
+          title: 'Ups, ha ocurrido un error. Intente nuevamente',
           showConfirmButton: false,
-          title: 'El correo electrónico o la contraseña son incorrectos. Por favor verifique e inténtelo nuevamente',
-          showCancelButton:false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        });
+          timer: 1500
+        })
       }
 
       if (datos.status == true) {
         localStorage.setItem("idcuenta", datos._id);
         localStorage.setItem("datos", datos.name);
         Swal.fire({
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
+          position: 'top-end',
+          icon: 'success',
+          title: 'Cuenta creada satisfactoriamente',
           showConfirmButton: false,
-          title: 'Bienvenido a OSLcombustibles',
-          showCancelButton:false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        });
-        
-      
-        
+          timer: 1500
+        })
       }
 
     }, error => {
       console.log(error)
     }, () => {
-      this.CuentaService.cuenta().subscribe((response) => {
-        this.datos = response.transaccion.data;
-        console.log("datos",this.datos)
-      });
       window.location.href = '/home';
-      
     });
 
   }

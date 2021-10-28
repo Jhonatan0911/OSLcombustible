@@ -70,8 +70,17 @@ p {
     color: #fff;
     background-color: #B3404A;
     font-weight: 400;
+    width: 100% !important;
 }
 .btn-osl:hover{
     color: #fff;
     background-color: #831e26;
+}
+.btn-osl2{
+    margin: 10px 0 0;
+    border-radius: 20px;
+    padding: 8px 22px;
+    color: #fff;
+    font-weight: 400;
+    width: 100% !important;
 }

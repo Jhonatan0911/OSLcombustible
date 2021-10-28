@@ -14,18 +14,23 @@
                                     <p>Nombre del cliente<b class="text-danger">*</b></p>
                                     <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Juan">
                                 </div>
+                                <br>
                                 <div class="form-group">
                                     <p>No. de identificación <b class="text-danger">*</b></p>
                                         <input type="text" [(ngModel)]="identificacion" class="form-control" placeholder="Ej: 1234567890">
                                 </div>
+                                <br>
+                                
                             </div>
 
 
-                        <div>
-                            <button class="btn btn-osl btn-block" (click)="crear()">Crear cliente</button>
-
-
-                            <button class="btn btn-dark btn-block" routerLink="/home">Cancelar</button>
+                        <div class="row">
+                            <div class="col-6 col-md-6">
+                                <button class="btn btn-osl btn-block" (click)="crear()">Crear cliente</button>
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
