@@ -36,14 +36,14 @@
                                 <br>
                                 <div class="register">
                                     <label for="email" class="label">
-                                        <input type="email" id="email" name="email" required autocomplete="email" placeholder="Correo Electronico">
+                                        <input type="email" [(ngModel)]="email" id="email" name="email" required autocomplete="email" placeholder="Correo Electronico">
                                         <span>Correo Electronico</span>
                                     </label>
     
                                     <br>
     
                                     <label for="password">
-                                        <input type="password" id="password" placeholder="Contraseña"  name="password" required autocomplete="current-password">
+                                        <input type="password" [(ngModel)]="password" id="password" placeholder="Contraseña"  name="password" required autocomplete="current-password">
                                         <span>Contraseña</span>
                                     </label>
                                     <br>

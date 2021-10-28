@@ -12,18 +12,18 @@
                             <div>
                                 <div class="form-group">
                                     <p>Nombre de la operacion<b class="text-danger">*</b></p>
-                                    <input type="text" class="form-control" placeholder="Ej: Tanquear">
+                                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
                                 </div>
                                 <div class="form-group">
                                     <p>Detalles<b class="text-danger">*</b></p>
-                                    <textarea class="form-control" >
+                                    <textarea class="form-control" [(ngModel)]="detalle">
                                         
                                     </textarea>
                                 </div>
                             </div>
 
                         <div>
-                            <button class="btn btn-osl btn-block" >Crear operación</button>
+                            <button class="btn btn-osl btn-block" (click)="OperacionesService.agregar(nombre, detalle);" >Crear operación</button>
 
 
                             <button class="btn btn-dark btn-block" routerLink="/home">Cancelar</button>

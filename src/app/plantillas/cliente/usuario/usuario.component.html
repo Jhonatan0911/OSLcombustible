@@ -3,14 +3,10 @@
     <!-- bienvenido -->
     <h2><strong>Clientes</strong></h2>
     <br>
-    <ol class="list-group list-group-numbered">
+    <ol class="list-group list-group-numbered" *ngFor="let cliente of this.clientes">
         <li class="list-group-item">
-            Cliente 1
+            {{cliente.name}}
         </li>
-        <li class="list-group-item">Cliente 2</li>
-        <li class="list-group-item">Cliente 3</li>
-        <li class="list-group-item">Cliente 4</li>
-        <li class="list-group-item">Cliente 5</li>
 
     </ol>
     <br>

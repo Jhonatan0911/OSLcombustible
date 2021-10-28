@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { OperacionComponent } from './plantillas/operacion/operacion.component';
 import { RegistroComponent } from './plantillas/registro/registro.component';
 import { UsuarioComponent } from './plantillas/cliente/usuario/usuario.component';
 import { UserComponent } from './plantillas/cliente/placa/user.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { UserComponent } from './plantillas/cliente/placa/user.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

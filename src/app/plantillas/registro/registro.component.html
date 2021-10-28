@@ -13,14 +13,14 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <p>Cliente <b class="text-danger">*</b></p>
-                                        <select class="form-control" >
+                                        <select class="form-control" [(ngModel)]="cliente">
                                             <option value="1">Cliente 1</option>
                                             <option value="2">Cliente 2</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <p>Vehiculo <b class="text-danger">*</b></p>
-                                        <select class="form-control" >
+                                        <select class="form-control" [(ngModel)]="vehiculo">
                                             <option value="1">Vehiuclo ABC-345</option>
                                             <option value="2">Vehiuclo HJF-489</option>
                                         </select>
@@ -28,49 +28,49 @@
                                 </div>  
                                 <div class="form-group">
                                     <p>Operacion<b class="text-danger">*</b></p>
-                                    <select class="form-control" >
+                                    <select class="form-control" [(ngModel)]="operacion">
                                         <option value="1">Operacion 1</option>
                                         <option value="2">Operacion 2</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <p>No. de galones <b class="text-danger">*</b></p>
-                                    <input type="number"class="form-control" placeholder="Ej: 38">
+                                    <input type="number" [(ngModel)]="galones" class="form-control" placeholder="Ej: 38">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <p>Lectura Inicial<b class="text-danger">*</b></p>
-                                        <input type="number"class="form-control" placeholder="Ej: 39581,2">
+                                        <input type="number" [(ngModel)]="l_inicial" class="form-control" placeholder="Ej: 39581,2">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <p>Lectura Final <b class="text-danger">*</b></p>
-                                        <input type="number"class="form-control" placeholder="Ej: 39619,4">
+                                        <input type="number" [(ngModel)]="l_final" class="form-control" placeholder="Ej: 39619,4">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p>Valor <b class="text-danger">*</b></p>
-                                    <input type="number"class="form-control" placeholder="Ej: $200.000">
+                                    <input type="number" [(ngModel)]="valor" class="form-control" placeholder="Ej: $200.000">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <p>Conductor<b class="text-danger">*</b></p>
-                                        <input type="text"class="form-control" placeholder="Ej: Jorge">
+                                        <input type="text" [(ngModel)]="conductor" class="form-control" placeholder="Ej: Jorge">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <p>Operario <b class="text-danger">*</b></p>
-                                        <input type="text"class="form-control" placeholder="Ej: Fernando">
+                                        <input type="text" [(ngModel)]="operario" class="form-control" placeholder="Ej: Fernando">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p>Observaciones<b class="text-danger">*</b></p>
-                                    <textarea class="form-control" >
+                                    <textarea class="form-control" [(ngModel)]="Observaciones">
                                         
                                     </textarea>
                                 </div>
                             </div>
 
                         <div>
-                            <button class="btn btn-osl btn-block" >Crear registro</button>
+                            <button class="btn btn-osl btn-block" (click)="RegistrosService.agregar(cliente, vehiculo, operacion, galones, l_inicial, l_final, valor, conductor, operario, Observaciones);">Crear registro</button>
 
 
                             <button class="btn btn-dark btn-block" routerLink="/home">Cancelar</button>
