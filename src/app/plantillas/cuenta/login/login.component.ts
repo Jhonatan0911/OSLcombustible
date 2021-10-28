@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
+import { SweetService } from 'src/app/servicios/sweet.service';
 
 
 @Component({
@@ -12,60 +13,41 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public CuentaService: CuentaService,
-
+    public SweetService: SweetService
   ) { }
   email: string = "";
   password: string = "";
   datos: any = [];
 
   ngOnInit(): void {
-    if(this.CuentaService.validarLogueo() == true){
+    if (this.CuentaService.validarLogueo() == true) {
       window.location.href = '/home';
-    } 
+    }
   }
-  login() {
-    this.CuentaService.login(this.email, this.password).subscribe((response) => {
-      let datos: any = [];
-      datos = response;
-      console.log("response",datos)
-      if (datos.status == 404) {
-        this.password = " ";
-        this.email = " ";
-        Swal.fire({
-          position: 'top-end',
-          icon: 'error',
-          title: 'Ups, ha ocurrido un error. Intente nuevamente',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
 
-      if (datos.status == true) {
-        let information: any = {
-          id: datos._id,
-          name: datos.name,
-        }
-        localStorage.setItem("datosUser", JSON.stringify(information));
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Bienvenido a OSLcombustibles',
-          showConfirmButton: false,
-          timer: 1500
-        })
-      }
+  login() {
+    this.CuentaService.login(this.email, this.password).subscribe((response: any) => {
+
+      localStorage.setItem("datosUser", JSON.stringify(response));
 
     }, error => {
-      console.log(error)
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Ups, ha ocurrido un error. Intente nuevamente',
-        showConfirmButton: false,
-        timer: 2000
-      })
+
+      this.SweetService.sweet({
+        message: "Ups, ha ocurrido un error. Intente nuevamente",
+        type: "error"
+      });
+
     }, () => {
-      window.location.href = '/home';
+
+      this.SweetService.sweet({
+        message: "Bienvenido",
+        type: "success"
+      });
+
+      setTimeout(() => {
+        window.location.href = '/home';
+      }, 1000);
+
     });
 
   }
