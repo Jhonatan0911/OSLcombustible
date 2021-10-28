@@ -12,10 +12,15 @@ export class OperacionComponent implements OnInit {
     public OperacionesService: OperacionesService,
   ) { }
   
-  nombre: any;
-  detalle: any;
+  nombre: string ="";
+  detalle:  string ="";
 
   ngOnInit(): void {
+  }
+  crear(){
+    this.OperacionesService.crear(this.nombre, this.detalle).subscribe((response: any) => {
+      console.log(response);
+    })
   }
 
 }

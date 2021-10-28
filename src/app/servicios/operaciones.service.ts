@@ -1,14 +1,35 @@
 import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OperacionesService {
+  API: string;
+  constructor(
+    private api: ApiService,
+    private http: HttpClient,
+  ) { 
+    this.API = this.api.cargaAPI();
+  }
 
-  constructor() { }
   public operacion: any = [];
-  public nombre: any = "null";
-  public detalle: any = "null";
+  public nombre: any = "";
+  public detalle: any = "";
+
+  listar(){
+    return this.http.get<transaccion>(this.API+'operaciones');
+  }
+
+  crear(nombre: any, detalle: any){
+    let parametros = {
+      name: nombre,
+      details: detalle,
+      status: true,
+    }
+    return this.http.post<transaccion>(this.API+'operaciones',parametros);
+  }
 
   carga() {
     if (localStorage.getItem('operacion')) {
@@ -36,4 +57,7 @@ export class OperacionesService {
     localStorage.removeItem('operacion');
   
   }
+}
+export class transaccion {
+  transaccion: any;
 }
