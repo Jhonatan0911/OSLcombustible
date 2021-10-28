@@ -38,12 +38,15 @@ export class LoginComponent implements OnInit {
       }
 
       if (datos.status == true) {
-        localStorage.setItem("idcuenta", datos._id);
-        localStorage.setItem("datos", datos.name);
+        let information: any = {
+          id: datos._id,
+          name: datos.name,
+        }
+        localStorage.setItem("datosUser", JSON.stringify(information));
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Cuenta creada satisfactoriamente',
+          title: 'Bienvenido a OSLcombustibles',
           showConfirmButton: false,
           timer: 1500
         })
@@ -51,6 +54,13 @@ export class LoginComponent implements OnInit {
 
     }, error => {
       console.log(error)
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Ups, ha ocurrido un error. Intente nuevamente',
+        showConfirmButton: false,
+        timer: 2000
+      })
     }, () => {
       window.location.href = '/home';
     });

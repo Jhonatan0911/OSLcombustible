@@ -14,7 +14,7 @@ export class CuentaService {
     private http: HttpClient,
   ) { 
     this.API = this.api.cargaAPI();
-    this.id = localStorage.getItem('idcuenta');
+    this.id = localStorage.getItem('datosUser');
   }
 
   Verifylogin() {
@@ -24,7 +24,7 @@ export class CuentaService {
   }
 
   validarLogueo() {
-    let token = localStorage.getItem('idcuenta');
+    let token = localStorage.getItem('datosUser');
     if(token){
       return true;
     }else{

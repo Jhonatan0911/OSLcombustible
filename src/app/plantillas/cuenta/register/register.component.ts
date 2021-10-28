@@ -49,6 +49,13 @@ export class RegisterComponent implements OnInit {
       }
 
     }, error => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Ups, ha ocurrido un error. Intente nuevamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
       console.log(error)
     }, () => {
       this.name = " ";
