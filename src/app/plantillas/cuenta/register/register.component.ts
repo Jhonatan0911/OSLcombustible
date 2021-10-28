@@ -58,9 +58,9 @@ export class RegisterComponent implements OnInit {
       })
       console.log(error)
     }, () => {
-      this.name = " ";
-      this.password = " ";
-      this.email = " ";
+      this.name = "";
+      this.password = "";
+      this.email = "";
     });
   }
 

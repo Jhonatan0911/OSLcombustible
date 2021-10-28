@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.password = " ";
         this.email = " ";
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'error',
           title: 'Ups, ha ocurrido un error. Intente nuevamente',
           showConfirmButton: false,
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         }
         localStorage.setItem("datosUser", JSON.stringify(information));
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: 'Bienvenido a OSLcombustibles',
           showConfirmButton: false,
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
     }, error => {
       console.log(error)
       Swal.fire({
-        position: 'top-end',
+        position: 'center',
         icon: 'error',
         title: 'Ups, ha ocurrido un error. Intente nuevamente',
         showConfirmButton: false,

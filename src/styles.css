@@ -101,3 +101,14 @@ p {
     color: #fff;
     background-color: #000000;
 }
+.btn-osl4{
+    border-radius: 20px;
+    padding: 8px 22px;
+    color: #fff;
+    font-weight: 400;
+}
+
+.btn-osl4:hover{
+    color: #fff;
+    background-color: #000000;
+}

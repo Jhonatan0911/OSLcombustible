@@ -1,4 +1,3 @@
-<app-header></app-header>
 <div class="container mt-5">
     <!-- bienvenido -->
     <h2><strong>Clientes</strong></h2>
@@ -6,7 +5,7 @@
     <ol class="list-group list-group-numbered" *ngFor="let cliente of this.clientes">
         <li class="list-group-item" style="height: 60px ">
             {{cliente.name}}
-            <button class="btn btn-dark btn-osl2 btn-block" style="right: 140px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
+            <button class="btn btn-dark btn-osl4 btn-block" style="right: 140px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
 
             <button class="btn btn-osl3 btn-block" style="right: 10px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(cliente)"> Ver más</button>
         </li>
@@ -72,4 +71,3 @@
   </div>
     
 </div>
-<app-footer></app-footer>

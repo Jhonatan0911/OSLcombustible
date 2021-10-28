@@ -19,10 +19,13 @@ export class OperacionComponent implements OnInit {
   
   nombre: string ="";
   detalle:  string ="";
+  operacion: any;
+
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
   }
+
   crear(){
     this.OperacionesService.crear(this.nombre, this.detalle).subscribe((response: any) => {
       console.log(response);
@@ -46,6 +49,13 @@ export class OperacionComponent implements OnInit {
       this.nombre = " ";
       this.detalle = " ";
     });
+  }
+
+  cargaroperaciones(){
+    this.OperacionesService.listar().subscribe((response: any) => {
+      this.operacion = response;
+      console.log(response);
+    })
   }
 
 }
