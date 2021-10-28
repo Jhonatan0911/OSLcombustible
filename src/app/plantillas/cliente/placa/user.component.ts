@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Nuevo cliente satisfactoriamente',
+        title: 'Nuevo cliente creado satisfactoriamente',
         showConfirmButton: false,
         timer: 1500
       })

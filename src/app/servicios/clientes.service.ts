@@ -34,6 +34,14 @@ export class ClientesService {
     }
     return this.http.post<transaccion>(this.API+'clientes',parametros);
   }
+  editar(nombre: any, identificacion: any, id:any){
+    let parametros = {
+      name: nombre,
+      identification: identificacion,
+      status: true,
+    }
+    return this.http.put<transaccion>(this.API+'clientes/'+id,parametros);
+  }
 
   agregarplaca(id: any, placa:any){
     let parametros = {

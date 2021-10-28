@@ -6,7 +6,9 @@
     <ol class="list-group list-group-numbered" *ngFor="let cliente of this.clientes">
         <li class="list-group-item" style="height: 60px ">
             {{cliente.name}}
-            <button class="btn btn-osl3 btn-block" style="right: 10px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
+            <button class="btn btn-dark btn-osl2 btn-block" style="right: 140px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
+
+            <button class="btn btn-osl3 btn-block" style="right: 10px !important; position:absolute" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(cliente)"> Ver más</button>
         </li>
     </ol>
     <br>
@@ -19,10 +21,10 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">Cliente:</label>
                   <input type="text" disabled [(ngModel)]="id" class="form-control" id="recipient-name">
-                </div>
+                </div> -->
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">Placa:</label>
                   <input class="form-control" [(ngModel)]="placa" id="message-text">
@@ -35,6 +37,39 @@
           </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal2Label">Datos del cliente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Cliente:</label>
+                <input type="text" [(ngModel)]="name" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">identificacion:</label>
+                <input type="text" [(ngModel)]="identificacion" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Placas:</label>
+                <h6 *ngIf="vacioplaca == true">Este usuario no tiene placas registradas</h6>
+                <div class="card" *ngFor="let pla of this.placas">
+                  <div class="card-body">
+                   {{pla.placa}}
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-osl3" (click)="editaruser()">Editar user</button>
+          </div>
+        </div>
+      </div>
+  </div>
     
 </div>
 <app-footer></app-footer>
