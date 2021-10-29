@@ -20,6 +20,15 @@ export class InformeComponent implements OnInit {
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
+    this.listar();
+  }
+
+  listar(){
+    this.RegistrosService.listar().subscribe((response: any) => {
+      this.registros = response;
+      console.log(this.registros);
+    })
+   
   }
 
 }
