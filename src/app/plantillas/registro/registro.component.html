@@ -15,7 +15,6 @@
                                         <select class="form-select" [(ngModel)]="clienteObject" >
                                             <option *ngFor="let cli of this.cliente" [value]="cli | json">{{cli.name}}</option>
                                         </select>
-                                       {{clienteObject}}
                                     </div>
                                     <div class="col-6 col-md-6">
                                         <p>Vehiculo <b class="text-danger">*</b></p>
