@@ -1,4 +1,4 @@
-<div  class="container py-3">
+<div class="container py-3">
     <div class="container my-5">
         <div class="row">
             <div class="col-6 col-md-5">
@@ -10,21 +10,38 @@
                                 <br>
                                 <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                                 <hr>
+                                <!-- <div>
+                                    <div class="form-group">
+                                        <p>Nombre de la operacion<b class="text-danger">*</b></p>
+                                        <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <p>Detalles<b class="text-danger">*</b></p>
+                                        <textarea class="form-control" [(ngModel)]="detalle"></textarea>
+                                    </div>
+                                    <br>
+                                </div> -->
+
+                                <form (ngSubmit)="submit()" [formGroup]="form">
                                     <div>
                                         <div class="form-group">
                                             <p>Nombre de la operacion<b class="text-danger">*</b></p>
-                                            <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
+                                            <input type="text" formControlName="name" class="form-control" placeholder="Ej: Tanquear">
                                         </div>
                                         <br>
                                         <div class="form-group">
                                             <p>Detalles<b class="text-danger">*</b></p>
-                                            <textarea class="form-control" [(ngModel)]="detalle">
-                                                
-                                            </textarea>
+                                            <textarea class="form-control" formControlName="details"></textarea>
                                         </div>
                                         <br>
                                     </div>
-        
+
+                                    Este es el estado del formulario reactivo: {{form.valid}}
+                                    <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Crear operación</button>
+
+
+                                </form>
                                 <div class="row">
                                     <div class="col-6 col-md-6">
                                         <button class="btn btn-osl btn-block" (click)="crear()">Crear operación</button>
@@ -32,7 +49,7 @@
                                     <div class="col-6 col-md-6">
                                         <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
                                     </div>
-                                </div>    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,31 +73,28 @@
                 </div>
                 <div class="modal fade" id="ope" tabindex="-1" aria-labelledby="opeLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="opeabel">{{operacionselected.name}}</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                              <label for="message-text" class="col-form-label">Nombre:</label>
-                              <input class="form-control" [(ngModel)]="nameselected" id="message-text">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="opeabel">{{operacionselected.name}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Detalle:</label>
-                                <input class="form-control" [(ngModel)]="detailselected" id="message-text">
-                              </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Nombre:</label>
+                                    <input class="form-control" [(ngModel)]="nameselected" id="message-text">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Detalle:</label>
+                                    <input class="form-control" [(ngModel)]="detailselected" id="message-text">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-osl3" (click)="editar(nameselected, detailselected)">Editar</button>
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-osl3" (click)="editar(nameselected, detailselected)">Editar</button>
-                        </div>
-                      </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
