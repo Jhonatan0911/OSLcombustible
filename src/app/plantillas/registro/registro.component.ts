@@ -22,7 +22,7 @@ export class RegistroComponent implements OnInit {
     public SweetService: SweetService,
   ) { }
 
-  cliente: any;
+  cliente: any = [];
   vehiculo: any = "";
   operacion: any = "";
   galones: any = "";
@@ -30,6 +30,7 @@ export class RegistroComponent implements OnInit {
   l_final: any = "";
   valor: any = "";
   conductor: any = "";
+  user: any;
   operario: any = "";
   Observaciones: any = "";
   clienteObject: any;
@@ -45,10 +46,14 @@ export class RegistroComponent implements OnInit {
     this.CuentaService.Verifylogin();
     this.cargaroperaciones();
     this.cargaclientes();
+    this.user = localStorage.getItem('datosUser');
+    this.user = JSON.parse(this.user);
+    this.operario = this.user.name;
   }
 
   
   onChange(){
+    this.viewplace = false;
     this.places = JSON.parse(this.clienteObject).places;
     console.log(this.places)
     if(this.places.length != 0){
@@ -70,8 +75,11 @@ export class RegistroComponent implements OnInit {
   }
   cargaclientes() {
     this.ClientesService.listar().subscribe((response: any) => {
-      this.cliente = response;
-      // this.cliente  = JSON.stringify(this.cliente);
+      response.forEach((element:any) => {
+        if(element.status == true && element.places.length != 0){
+          this.cliente.push(element);
+        }
+      });
     })
   }
 
