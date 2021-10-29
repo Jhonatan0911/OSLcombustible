@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OperacionesService } from 'src/app/servicios/operaciones.service';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
-import Swal from 'sweetalert2';
+import { SweetService } from 'src/app/servicios/sweet.service';
+
 
 
 
@@ -15,35 +16,34 @@ export class OperacionComponent implements OnInit {
   constructor(
     public OperacionesService: OperacionesService,
     public CuentaService: CuentaService,
+    public SweetService: SweetService,
   ) { }
   
   nombre: string ="";
   detalle:  string ="";
   operacion: any;
-
+  operacionselected: any = [];
+  id:any ="";
+  detailselected:any ="";
+  nameselected: any ="";
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
+    this.cargaroperaciones();
   }
 
   crear(){
     this.OperacionesService.crear(this.nombre, this.detalle).subscribe((response: any) => {
       console.log(response);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Operacion creada satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.SweetService.sweet({
+        message: "Operacion creada exitosamente",
+        type: "success"
+      });
     }, error => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Ups, ha ocurrido un error. Intente nuevamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.SweetService.sweet({
+        message: "Ups, ha ocurrido un error. Intente nuevamente",
+        type: "error"
+      });
       console.log(error)
     }, () => {
       this.nombre = " ";
@@ -56,6 +56,28 @@ export class OperacionComponent implements OnInit {
       this.operacion = response;
       console.log(response);
     })
+  }
+
+  cargadatos(operacion:any){
+    this. operacionselected = operacion;
+    this.id = this. operacionselected._id;
+    this.detailselected = this. operacionselected.details;
+    this.nameselected = this. operacionselected.name;
+  }
+  editar(name:any, detail:any){
+    this.OperacionesService.editar(name, detail, this.id).subscribe((response: any) => {
+      this.SweetService.sweet({
+        message: "Datos actualizados exitosamente",
+        type: "success"
+      });
+    }, error => {
+      this.SweetService.sweet({
+        message: "Ups, ha ocurrido un error. Intente nuevamente",
+        type: "error"
+      });
+      console.log(error)
+    }, () => {
+    });
   }
 
 }

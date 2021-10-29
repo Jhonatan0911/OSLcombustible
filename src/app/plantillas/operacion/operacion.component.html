@@ -1,79 +1,85 @@
 <div  class="container py-3">
     <div class="container my-5">
-        <div class="col-12 col-md-7 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
-            <div class="card cardosl">
-                <div class="card-body py-5">
-                    <div class="px-2">
-                        <p class="h3 font-weight-bold text-center titleosl">Nueva operación</p>
-                        <br>
-                        <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
-                        <hr>
-                            <div>
-                                <div class="form-group">
-                                    <p>Nombre de la operacion<b class="text-danger">*</b></p>
-                                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
-                                </div>
+        <div class="row">
+            <div class="col-6 col-md-5">
+                <div class="col-12 col-md-12 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
+                    <div class="card cardosl">
+                        <div class="card-body py-5">
+                            <div class="px-2">
+                                <p class="h3 font-weight-bold text-center titleosl">Nueva operación</p>
                                 <br>
-                                <div class="form-group">
-                                    <p>Detalles<b class="text-danger">*</b></p>
-                                    <textarea class="form-control" [(ngModel)]="detalle">
-                                        
-                                    </textarea>
-                                </div>
-                                <br>
+                                <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
+                                <hr>
+                                    <div>
+                                        <div class="form-group">
+                                            <p>Nombre de la operacion<b class="text-danger">*</b></p>
+                                            <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <p>Detalles<b class="text-danger">*</b></p>
+                                            <textarea class="form-control" [(ngModel)]="detalle">
+                                                
+                                            </textarea>
+                                        </div>
+                                        <br>
+                                    </div>
+        
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
+                                        <button class="btn btn-osl btn-block" (click)="crear()">Crear operación</button>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
+                                    </div>
+                                </div>    
                             </div>
-
-                        <div class="row">
-                            <div class="col-6 col-md-6">
-                                <button class="btn btn-osl btn-block" (click)="crear()">Crear operación</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-7">
+                <div class="row">
+                    <div class="card cardOp col-6 col-md-5" *ngFor="let op of this.operacion">
+                        <div class="card-body">
+                            <strong class="h6" style="font-weight: 700;">Operación:</strong>
+                            {{op.name}}
+                            <br>
+                            <strong class="h6" style="font-weight: 700;">Detalles:</strong>
+                            {{op.details}}
+                            <br><br>
+                            <button class="btn btn-osl3 btn-block" data-bs-toggle="modal" data-bs-target="#ope" (click)="cargadatos(op)">
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="ope" tabindex="-1" aria-labelledby="opeLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="opeabel">{{operacionselected.name}}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="message-text" class="col-form-label">Nombre:</label>
+                              <input class="form-control" [(ngModel)]="nameselected" id="message-text">
                             </div>
-                            <div class="col-6 col-md-6">
-                                <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
-                            </div>
-                        </div>    
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Detalle:</label>
+                                <input class="form-control" [(ngModel)]="detailselected" id="message-text">
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                          <button type="button" class="btn btn-osl3" (click)="editar(nameselected, detailselected)">Editar</button>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Ver operaciones
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombre de la operacion</th>
-                            <th scope="col">Detalles</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                </div>
-              </div>
-            </div>
-          </div>
     </div>
 </div>
 

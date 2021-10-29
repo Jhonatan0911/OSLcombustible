@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { SweetService } from 'src/app/servicios/sweet.service';
 
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
   ) { }
   email: string = "";
   password: string = "";
-  datos: any = [];
 
   ngOnInit(): void {
     if (this.CuentaService.validarLogueo() == true) {

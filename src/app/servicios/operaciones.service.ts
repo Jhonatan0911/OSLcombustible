@@ -22,6 +22,15 @@ export class OperacionesService {
     return this.http.get<transaccion>(this.API+'operaciones');
   }
 
+  editar(name:any, detail:any, id:any){
+    let parametros = {
+      name: name,
+      details: detail,
+      status: true,
+    }
+    return this.http.put<transaccion>(this.API+'operaciones/'+id,parametros);
+  }
+
   crear(nombre: any, detalle: any){
     let parametros = {
       name: nombre,
