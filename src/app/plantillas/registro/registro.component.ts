@@ -35,13 +35,33 @@ export class RegistroComponent implements OnInit {
   clienteObject: any;
   operacionObject: any = "";
   vehiculoObject: any = "";
+  placesObject: any = "";
+
 
   places: any = [];
+  viewplace = false;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.cargaroperaciones();
     this.cargaclientes();
+  }
+
+  
+  onChange(){
+    this.places = JSON.parse(this.clienteObject).places;
+    console.log(this.places)
+    if(this.places.length != 0){
+      this.viewplace = true;
+    }else{
+      this.SweetService.sweet({
+        message: "Este usuario no tiene vehiculos registrados",
+        type: "error"
+      });
+      this.clienteObject= "";
+
+
+    }
   }
   cargaroperaciones() {
     this.OperacionesService.listar().subscribe((response: any) => {
@@ -55,10 +75,6 @@ export class RegistroComponent implements OnInit {
     })
   }
 
-  onChange() {
-    console.log(this.clienteObject);
-    this.places = JSON.stringify(this.clienteObject.places)
-  }
 
   crear(cliente: any, vehiculo: any, operacion: any, galones: any, l_inicial: any, l_final: any, valor: any, conductor: any, operario: any, Observaciones: any,) {
 

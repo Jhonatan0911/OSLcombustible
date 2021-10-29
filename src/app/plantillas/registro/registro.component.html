@@ -12,22 +12,21 @@
                                 <div class="row">
                                     <div class="col-6 col-md-6">
                                         <p>Cliente <b class="text-danger">*</b></p>
-                                        <select class="form-select" [(ngModel)]="clienteObject" >
+                                        <select class="form-select" [(ngModel)]="clienteObject" (change)="onChange()">
                                             <option *ngFor="let cli of this.cliente" [value]="cli | json">{{cli.name}}</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-6">
-                                        <p>Vehiculo <b class="text-danger">*</b></p>
-                                        <select class="form-select" [(ngModel)]="vehiculoObject">
-                                            <option value="1">Vehiuclo ABC-345</option>
-                                            <option value="2">Vehiuclo HJF-489</option>
+                                        <p>Operacion<b class="text-danger">*</b></p>
+                                        <select class="form-select" [(ngModel)]="operacionObject" >
+                                            <option *ngFor="let op of this.operacion" value="{{op | json}}">{{op.name}}</option>
                                         </select>
                                     </div>
                                 </div>  
-                                <div class="form-group">
-                                    <p>Operacion<b class="text-danger">*</b></p>
-                                    <select class="form-select" [(ngModel)]="operacionObject" >
-                                        <option *ngFor="let op of this.operacion" value="{{op | json}}">{{op.name}}</option>
+                                <div class="form-group" *ngIf="viewplace">
+                                    <p>Vehiculo <b class="text-danger">*</b></p>
+                                    <select class="form-select" [(ngModel)]="placesObject">
+                                        <option *ngFor="let pla of this.places" [value]="pla | json">{{pla.placa}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
