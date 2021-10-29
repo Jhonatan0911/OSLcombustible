@@ -21,8 +21,18 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of registros">
-                <td class="text-right">{{registros.name}}</td>
+            <tr *ngFor="let registro of registros">
+              <td>{{registro._id}}</td>
+              <td>{{registro.data.cliente}}</td>
+              <td>{{registro.data.vehiculo}}</td>
+              <td>{{registro.data.operacion</td>
+              <td>{{registro.data.galones}}</td>
+              <td>{{registro.data.l_inicial}}</td>
+              <td>{{registro.data.l_final}}</td>
+              <td>{{registro.data.valor}}</td>
+              <td>{{registro.data.conductor}}}}</td>
+              <td>{{registro.data.operario}}}}</td>
+              <td>{{registro.data.observaciones}}</td>
             </tr>
         </tbody>
       </table>
