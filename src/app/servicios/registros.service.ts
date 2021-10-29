@@ -47,7 +47,11 @@ export class RegistrosService {
       operario: operario,
       observaciones: observaciones,
     }
-    return this.http.post<transaccion>(this.API+'registros',parametros);
+    let body = {
+      data: parametros,
+      status: true
+    }
+    return this.http.post<transaccion>(this.API+'registros',body);
   }
 }
 export class transaccion {

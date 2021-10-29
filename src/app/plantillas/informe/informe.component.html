@@ -1,1 +1,29 @@
+<div class="container mt-5">
 
+    <h2><strong>Registros</strong></h2>
+    <br><br><br>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Vehiculo</th>
+            <th scope="col">Operacion</th>
+            <th scope="col">No. de galones</th>
+            <th scope="col">Lectura inicial</th>
+            <th scope="col">Lectura final</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Conductor</th>
+            <th scope="col">Operario</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Descarga</th>
+
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of registros">
+                <td class="text-right">{{registros.name}}</td>
+            </tr>
+        </tbody>
+      </table>
+</div>

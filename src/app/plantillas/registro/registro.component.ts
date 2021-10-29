@@ -24,15 +24,18 @@ export class RegistroComponent implements OnInit {
 
   ) { }
   cliente: any;
-  vehiculo: any;
-  operacion: any;
-  galones: any;
-  l_inicial: any;
-  l_final: any;
-  valor: any;
-  conductor: any;
-  operario: any;
-  Observaciones: any;
+  vehiculo: any = "";
+  operacion: any = "";
+  galones: any = "";
+  l_inicial: any = "";
+  l_final: any = "";
+  valor: any = "";
+  conductor: any = "";
+  operario: any = "";
+  Observaciones: any = "";
+  clienteObject: any;
+  operacionObject: any = "";
+  vehiculoObject: any = "";
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
@@ -42,13 +45,12 @@ export class RegistroComponent implements OnInit {
   cargaroperaciones(){
     this.OperacionesService.listar().subscribe((response: any) => {
       this.operacion = response;
-      console.log(response);
     })
   }
   cargaclientes(){
     this.ClientesService.listar().subscribe((response: any) => {
       this.cliente = response;
-      console.log(response);
+     // this.cliente  = JSON.stringify(this.cliente);
     })
   }
   crear(cliente:any, vehiculo:any, operacion:any, galones:any, l_inicial:any, l_final:any, valor:any, conductor:any, operario:any, Observaciones:any,){
@@ -66,9 +68,6 @@ export class RegistroComponent implements OnInit {
       });
       console.log(error)
     }, () => {
-      this.cliente= "";
-      this.vehiculo= "";
-      this.operacion= "";
       this.galones= "";
       this.l_inicial= "";
       this.l_final= "";
