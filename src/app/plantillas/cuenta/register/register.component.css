@@ -1,4 +1,4 @@
-.card-login{
+/* .card-login{
     margin: 10px 4px;
     display: flex;
     padding: 40px;
@@ -145,4 +145,12 @@ label:focus-within{
     border-top-width: 0px !important;
     border-bottom-color: #B3404A !important;
     box-shadow: 0 0 0 0rem rgb(77 168 48 / 25%);
+} */
+.cardOp{
+    margin-top:20px;
+    margin-left: 20px;
+}
+
+.btn-osl3{
+    width: 100%;
 }

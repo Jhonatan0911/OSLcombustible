@@ -50,7 +50,17 @@ export class CuentaService {
     }
     return this.http.post<transaccion>(this.API+'usuarios', parametros);
   }
-  
+  listarUser() {
+    return this.http.get<transaccion>(this.API+'usuarios');
+  }
+  editar(name:any, email:any, id:any){
+    let parametros = {
+      name: name,
+      email: email,
+      status: true,
+    }
+    return this.http.put<transaccion>(this.API+'usuarios/'+id,parametros);
+  }
 
   crear(nombre: any, identificacion: any){
     let parametros = {

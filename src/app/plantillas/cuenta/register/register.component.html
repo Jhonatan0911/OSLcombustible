@@ -1,4 +1,4 @@
-<div class="mx-2" style="background-color: #F8F8F8; height:100vh">
+<!-- <div class="mx-2" style="background-color: #F8F8F8; height:100vh">
     <div class="container">
         <div class="col-md-12" style="padding-left: 24px; padding-right: 24px; padding-top:40px">
             <div class="card card-login">
@@ -74,4 +74,99 @@
             </div>
         </div>
     </div>
+</div> -->
+<div  class="container py-3">
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-6 col-md-5">
+                <div class="col-12 col-md-12 mx-auto sombra" style="border-style: solid !important; border-color: #858586 !important; border-width: 1px; border-radius: 10px; padding: 0px !important;">
+                    <div class="card cardosl">
+                        <div class="card-body py-5">
+                            <div class="px-2">
+                                <p class="h3 font-weight-bold text-center titleosl">Crear cuenta</p>
+                                <br>
+                                <p class="text-center text-muted">Completa todos los datos para crear una cuenta de forma satisfactoria</p>
+                                <hr>
+                                    <div>
+                                        <div class="form-group">
+                                            <p>Nombre <b class="text-danger">*</b></p>
+                                            <input type="text" [(ngModel)]="name" class="form-control" placeholder="Ej: Fernando">
+                                        </div>
+                                        <br>
+        
+                                        <div class="form-group">
+                                            <p>Correo Electronico<b class="text-danger">*</b></p>
+                                            <input type="text" [(ngModel)]="email" class="form-control" placeholder="Ej: nombre@gmail.com">
+                                        </div>
+                                        <br>
+        
+                                        <div class="form-group">
+                                            <p>Contraseña<b class="text-danger">*</b></p>
+                                            <input type="password" [(ngModel)]="password" class="form-control" placeholder="**********">
+                                        </div>
+        
+                                    </div>
+        
+                                <div>
+                                    <div class="form-group row mb-0 mt-3">
+                                        <div class="col-6 col-md-6">
+                                            <button class="btn btn-osl" (click)="crear()">
+                                                Crear cuenta
+                                            </button>
+                                        </div>
+                                        <div class="col-6 col-md-6">
+                                            <button class="btn btn-dark btn-osl2" routerLink="/home">
+                                                Cancelar
+                                            </button> 
+                                        </div>
+                                    </div>             
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-7">
+                <div class="row">
+                    <div class="card cardOp col-6 col-md-5" *ngFor="let user of this.usuarios">
+                        <div class="card-body">
+                            <strong class="h6" style="font-weight: 700;">Nombre:</strong><br>
+                            {{user.name}}
+                            <br>
+                            <strong class="h6" style="font-weight: 700;">Email:</strong><br>
+                            {{user.email}}
+                            <br><br>
+                            <button class="btn btn-osl3 btn-block" data-bs-toggle="modal" data-bs-target="#user"(click)="cargadatos(user)" >
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="user" tabindex="-1" aria-labelledby="userLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="userLabel">{{datosUser.name}}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="message-text" class="col-form-label">Nombre:</label>
+                              <input class="form-control" [(ngModel)]="nameselected" id="message-text">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Email:</label>
+                                <input class="form-control" [(ngModel)]="emailselected" id="message-text">
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-osl3" (click)="editar(nameselected, emailselected)">Editar</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
