@@ -10,19 +10,6 @@
                                 <br>
                                 <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                                 <hr>
-                                <!-- <div>
-                                    <div class="form-group">
-                                        <p>Nombre de la operacion<b class="text-danger">*</b></p>
-                                        <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Tanquear">
-                                    </div>
-                                    <br>
-                                    <div class="form-group">
-                                        <p>Detalles<b class="text-danger">*</b></p>
-                                        <textarea class="form-control" [(ngModel)]="detalle"></textarea>
-                                    </div>
-                                    <br>
-                                </div> -->
-
                                 <form (ngSubmit)="submit()" [formGroup]="form">
                                     <div>
                                         <div class="form-group">
@@ -39,17 +26,7 @@
 
                                     Este es el estado del formulario reactivo: {{form.valid}}
                                     <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Crear operación</button>
-
-
                                 </form>
-                                <div class="row">
-                                    <div class="col-6 col-md-6">
-                                        <button class="btn btn-osl btn-block" (click)="crear()">Crear operación</button>
-                                    </div>
-                                    <div class="col-6 col-md-6">
-                                        <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

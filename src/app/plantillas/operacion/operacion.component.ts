@@ -19,7 +19,9 @@ export class OperacionComponent implements OnInit {
 
   // Refactor
   form = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    name: new FormControl('', [
+      Validators.required,
+    ]),
     details: new FormControl(''),
     status: new FormControl(true)
   })
@@ -27,6 +29,9 @@ export class OperacionComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.OperacionesService.crearForm(this.form.value).subscribe((response: any) => {
+
+        this.operacion.push(response);
+
         this.SweetService.sweet({
           message: "Operacion creada exitosamente",
           type: "success"
@@ -37,7 +42,7 @@ export class OperacionComponent implements OnInit {
           type: "error"
         });
       }, () => {
-        this.form.reset()
+        this.form.reset();
       });
     }
   }
@@ -77,7 +82,6 @@ export class OperacionComponent implements OnInit {
   cargaroperaciones() {
     this.OperacionesService.listar().subscribe((response: any) => {
       this.operacion = response;
-      console.log(response);
     })
   }
 
@@ -89,6 +93,8 @@ export class OperacionComponent implements OnInit {
   }
   editar(name: any, detail: any) {
     this.OperacionesService.editar(name, detail, this.id).subscribe((response: any) => {
+
+
       this.SweetService.sweet({
         message: "Datos actualizados exitosamente",
         type: "success"
