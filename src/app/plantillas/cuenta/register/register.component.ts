@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { SweetService } from 'src/app/servicios/sweet.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 
 
@@ -25,6 +27,40 @@ export class RegisterComponent implements OnInit {
   nameselected: any = "";
   emailselected: any = "";
   id: any= "";
+
+  form = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  submit() {
+    if (this.form.valid) {
+      this.CuentaService.cuentaForm(this.form.value).subscribe((response: any) => {
+
+        this.usuarios.push(response);
+
+        this.SweetService.sweet({
+          message: "Nueva cuenta creada exitosamente",
+          type: "success"
+        });
+      }, error => {
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.form.reset();
+      });
+    }
+  }
 
 
   ngOnInit(): void {

@@ -41,6 +41,10 @@ export class CuentaService {
     return this.http.post<transaccion>(this.API+'usuarios/login',parametros);
   }
 
+  cuentaForm(payload: any) {
+    return this.http.post<transaccion>(this.API + 'usuarios', payload);
+  }
+
   cuenta( name:any, email: any, password: any) {
     let parametros = {
       name: name,
