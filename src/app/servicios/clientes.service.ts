@@ -34,6 +34,11 @@ export class ClientesService {
     }
     return this.http.post<transaccion>(this.API+'clientes',parametros);
   }
+
+  crearForm(payload: any) {
+    return this.http.post<transaccion>(this.API + 'clientes', payload);
+  }
+
   editar(nombre: any, identificacion: any, id:any){
     let parametros = {
       name: nombre,

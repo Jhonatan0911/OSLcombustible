@@ -8,29 +8,29 @@
                         <br>
                         <p class="text-center text-muted">Completa todos los datos para crear un nuevo cliente de forma satisfactoria</p>
                         <hr>
+                        <form (ngSubmit)="submit()" [formGroup]="form">
                             <div>
                                 <div class="form-group">
                                     <p>Nombre del cliente<b class="text-danger">*</b></p>
-                                    <input type="text" [(ngModel)]="nombre" class="form-control" placeholder="Ej: Juan">
+                                    <input type="text" formControlName="name" class="form-control" placeholder="Ej: Juan">
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <p>No. de identificación <b class="text-danger">*</b></p>
-                                        <input type="text" [(ngModel)]="identificacion" class="form-control" placeholder="Ej: 1234567890">
+                                        <input type="text" formControlName="identification" class="form-control" placeholder="Ej: 1234567890">
                                 </div>
                                 <br>
                                 
-                            </div>
-
-
-                        <div class="row">
-                            <div class="col-6 col-md-6">
-                                <button class="btn btn-osl btn-block" (click)="crear()">Crear</button>
-                            </div>
-                            <div class="col-6 col-md-6">
-                                <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
-                            </div>
-                        </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Crear</button>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
+                                </div>
+                            </div>                      
+                        </form>
                     </div>
                 </div>
             </div>
