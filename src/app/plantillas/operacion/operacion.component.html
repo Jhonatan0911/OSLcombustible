@@ -23,8 +23,6 @@
                                         </div>
                                         <br>
                                     </div>
-
-                                    <!-- Este es el estado del formulario reactivo: {{form.valid}} -->
                                     <div class="row">
                                         <div class="col-6 col-md-6">
                                             <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Crear</button>
@@ -63,17 +61,21 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Nombre:</label>
-                                    <input class="form-control" [(ngModel)]="nameselected" id="message-text">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Detalle:</label>
-                                    <input class="form-control" [(ngModel)]="detailselected" id="message-text">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-osl3" (click)="editar(nameselected, detailselected)">Editar</button>
+                                <form (ngSubmit)="submitEditar()" [formGroup]="formEditar">
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Nombre:</label>
+                                        <input class="form-control" formControlName="name"id="message-text">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Detalle:</label>
+                                        <input class="form-control" formControlName="details" id="message-text">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                          <button class="btn btn-osl btn-block" type="submit" [disabled]="!formEditar.valid">Editar</button>
+                                        </div>
+                                    </div> 
+                                </form>
                             </div>
                         </div>
                     </div>

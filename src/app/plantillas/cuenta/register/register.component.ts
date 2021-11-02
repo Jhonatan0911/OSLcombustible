@@ -40,6 +40,33 @@ export class RegisterComponent implements OnInit {
     ]),
     status: new FormControl(true)
   })
+  formEditar = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+    ]),
+    email: new FormControl('', [
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  submitEditar() {
+    if (this.formEditar.valid) {
+      this.CuentaService.editar(this.formEditar.value, this.id).subscribe((response: any) => {
+        this.SweetService.sweet({
+          message: "Datos actualizados exitosamente",
+          type: "success"
+        });
+      }, error => {
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.cargarUSer();
+      });
+    }
+  }
 
   submit() {
     if (this.form.valid) {
@@ -111,21 +138,26 @@ export class RegisterComponent implements OnInit {
     this.nameselected = this.datosUser.name;
     this.emailselected = this.datosUser.email;
     this.id = this.datosUser._id;
-  }
-  editar(nameselected:any, emailselected:any){
-    this.CuentaService.editar(nameselected,  emailselected, this.id).subscribe((response: any) => {
-      this.SweetService.sweet({
-        message: "Datos actualizados exitosamente",
-        type: "success"
-      });
-    }, error => {
-      this.SweetService.sweet({
-        message: "Ups, ha ocurrido un error. Intente nuevamente",
-        type: "error"
-      });
-      console.log(error)
-    }, () => {
+    this.formEditar.setValue({
+      name: this.nameselected,
+      email: this.emailselected,
+      status: true
     });
   }
+  // editar(nameselected:any, emailselected:any){
+  //   this.CuentaService.editar(nameselected,  emailselected, this.id).subscribe((response: any) => {
+  //     this.SweetService.sweet({
+  //       message: "Datos actualizados exitosamente",
+  //       type: "success"
+  //     });
+  //   }, error => {
+  //     this.SweetService.sweet({
+  //       message: "Ups, ha ocurrido un error. Intente nuevamente",
+  //       type: "error"
+  //     });
+  //     console.log(error)
+  //   }, () => {
+  //   });
+  // }
 
 }

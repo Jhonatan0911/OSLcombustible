@@ -57,13 +57,8 @@ export class CuentaService {
   listarUser() {
     return this.http.get<transaccion>(this.API+'usuarios');
   }
-  editar(name:any, email:any, id:any){
-    let parametros = {
-      name: name,
-      email: email,
-      status: true,
-    }
-    return this.http.put<transaccion>(this.API+'usuarios/'+id,parametros);
+  editar(payload:any,id:any){
+    return this.http.put<transaccion>(this.API+'usuarios/'+id,payload);
   }
 
   crear(nombre: any, identificacion: any){

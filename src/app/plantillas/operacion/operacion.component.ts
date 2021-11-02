@@ -26,6 +26,35 @@ export class OperacionComponent implements OnInit {
     status: new FormControl(true)
   })
 
+  formEditar = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+    ]),
+    details: new FormControl('',[
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  submitEditar() {
+    if (this.formEditar.valid) {
+      this.OperacionesService.editar(this.formEditar.value, this.id).subscribe((response: any) => {
+
+        this.SweetService.sweet({
+          message: "Datos actualizados exitosamente",
+          type: "success"
+        });
+      }, error => {
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.cargaroperaciones();
+      });
+    }
+  }
+
   submit() {
     if (this.form.valid) {
       this.OperacionesService.crearForm(this.form.value).subscribe((response: any) => {
@@ -90,23 +119,28 @@ export class OperacionComponent implements OnInit {
     this.id = this.operacionselected._id;
     this.detailselected = this.operacionselected.details;
     this.nameselected = this.operacionselected.name;
-  }
-  editar(name: any, detail: any) {
-    this.OperacionesService.editar(name, detail, this.id).subscribe((response: any) => {
-
-
-      this.SweetService.sweet({
-        message: "Datos actualizados exitosamente",
-        type: "success"
-      });
-    }, error => {
-      this.SweetService.sweet({
-        message: "Ups, ha ocurrido un error. Intente nuevamente",
-        type: "error"
-      });
-      console.log(error)
-    }, () => {
+    this.formEditar.setValue({
+      name: this.nameselected,
+      details: this.detailselected ,
+      status: true
     });
   }
+  // editar(name: any, detail: any) {
+  //   this.OperacionesService.editar(name, detail, this.id).subscribe((response: any) => {
+
+
+  //     this.SweetService.sweet({
+  //       message: "Datos actualizados exitosamente",
+  //       type: "success"
+  //     });
+  //   }, error => {
+  //     this.SweetService.sweet({
+  //       message: "Ups, ha ocurrido un error. Intente nuevamente",
+  //       type: "error"
+  //     });
+  //     console.log(error)
+  //   }, () => {
+  //   });
+  // }
 
 }
