@@ -36,12 +36,14 @@
               <td>{{registro.data.conductor}}</td>
               <td>{{registro.data.operario}}</td>
               <td>{{registro.data.observaciones}}</td>
-              <td><i class="fas fa-file-pdf"></i></td>
+              <td>
+                <button class="btn btn-dark btn-osl2" (click)="cargadatos(registro)"><i class="fas fa-file-pdf"></i></button>
+              </td>
             </tr>
         </tbody>
       </table>
       <div class="col-6 col-md-2"> 
         <br><br>
         <button class="btn btn-dark btn-osl2" routerLink="/home">Volver</button>
-    </div>
+      </div>
 </div>
