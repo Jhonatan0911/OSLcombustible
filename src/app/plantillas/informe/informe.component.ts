@@ -29,7 +29,8 @@ export class InformeComponent implements OnInit {
   valorSelected: any;
   conductorSelected: any; 
   operarioSelected: any; 
-  observaciones: any; 
+  observaciones: any;
+  fecha: any; 
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
@@ -45,6 +46,7 @@ export class InformeComponent implements OnInit {
     this.conductorSelected = registro.data.conductor;
     this.operarioSelected = registro.data.operario;
     this.observaciones = registro.data.observaciones;
+    this.fecha = registro.data.fecha;
     this.createPdf();
   }
 
@@ -69,8 +71,8 @@ export class InformeComponent implements OnInit {
                   text: 'Fecha: ',
                   table: {
                     body: [
-                      ['Hora','Día', 'Mes', 'Año'],
-                      ['1', '2', '3','4'],
+                      ['Fecha:'],
+                      [' '+this.fecha],
                     ]
                   },
                   style: 'tableHeader',
