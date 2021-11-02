@@ -53,6 +53,14 @@ export class RegistrosService {
     }
     return this.http.post<transaccion>(this.API+'registros',body);
   }
+
+  crearForm(payload: any) {
+    let body = {
+      data: payload,
+      status: true
+    }
+    return this.http.post<transaccion>(this.API +'registros', body);
+  }
 }
 export class transaccion {
   transaccion: any;

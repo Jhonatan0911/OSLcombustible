@@ -8,73 +8,72 @@
                         <br>
                         <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                         <hr>
+                        <form (ngSubmit)="submit()" [formGroup]="form">
                             <div>
                                 <div class="row">
                                     <div class="col-6 col-md-6">
                                         <p>Cliente <b class="text-danger">*</b></p>
-                                        <select class="form-select" [(ngModel)]="clienteObject" (change)="onChange()">
+                                        <select class="form-select" formControlName="cliente" (change)="onChange()">
                                             <option *ngFor="let cli of this.cliente" [value]="cli | json">{{cli.name}}</option>
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-6">
                                         <p>Operacion<b class="text-danger">*</b></p>
-                                        <select class="form-select" [(ngModel)]="operacionObject" >
+                                        <select class="form-select" formControlName="operacion" >
                                             <option *ngFor="let op of this.operacion" value="{{op | json}}">{{op.name}}</option>
                                         </select>
                                     </div>
                                 </div>  
                                 <div class="form-group" *ngIf="viewplace">
                                     <p>Vehiculo <b class="text-danger">*</b></p>
-                                    <select class="form-select" [(ngModel)]="placesObject">
+                                    <select class="form-select" formControlName="vehiculo">
                                         <option *ngFor="let pla of this.places" [value]="pla.placa">{{pla.placa}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <p>No. de galones <b class="text-danger">*</b></p>
-                                    <input type="number" [(ngModel)]="galones" class="form-control" placeholder="Ej: 38">
+                                    <input type="number" formControlName="galones" class="form-control" placeholder="Ej: 38">
                                 </div>
                                 <div class="row">
                                     <div class="col-6 col-md-6">
                                         <p>Lectura Inicial<b class="text-danger">*</b></p>
-                                        <input type="number" [(ngModel)]="l_inicial" class="form-control" placeholder="Ej: 39581,2">
+                                        <input type="number" formControlName="l_inicial" class="form-control" placeholder="Ej: 39581,2">
                                     </div>
                                     <div class="col-6 col-md-6">
                                         <p>Lectura Final <b class="text-danger">*</b></p>
-                                        <input type="number" [(ngModel)]="l_final" class="form-control" placeholder="Ej: 39619,4">
+                                        <input type="number" formControlName="l_final" class="form-control" placeholder="Ej: 39619,4">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p>Valor <b class="text-danger">*</b></p>
-                                    <input type="number" [(ngModel)]="valor" class="form-control" placeholder="Ej: $200.000">
+                                    <input type="number" formControlName="valor" class="form-control" placeholder="Ej: $200.000">
                                 </div>
                                 <div class="row">
                                     <div class="col-6 col-md-6">
                                         <p>Conductor<b class="text-danger">*</b></p>
-                                        <input type="text" [(ngModel)]="conductor" class="form-control" placeholder="Ej: Jorge">
+                                        <input type="text" formControlName="conductor" class="form-control" placeholder="Ej: Jorge">
                                     </div>
                                     <div class="col-6 col-md-6">
                                         <p>Operario <b class="text-danger">*</b></p>
-                                        <input type="text" [(ngModel)]="operario" class="form-control" placeholder="Ej: Fernando">
+                                        <input type="text" formControlName="operario" class="form-control" placeholder="Ej: Fernando">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <p>Observaciones<b class="text-danger">*</b></p>
-                                    <textarea class="form-control" [(ngModel)]="Observaciones">
+                                    <textarea class="form-control" formControlName="observaciones">
                                         
                                     </textarea>
                                 </div>
                             </div>
-
-                        <div>
                             <div class="row">
                                 <div class="col-6 col-md-6">
-                                    <button class="btn btn-osl" (click)="crear(clienteObject, placesObject, operacionObject, galones, l_inicial, l_final, valor, conductor, operario, Observaciones)">Crear</button>
+                                    <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Crear</button>
                                 </div>
                                 <div class="col-6 col-md-6">
                                     <button class="btn btn-dark btn-osl2" routerLink="/home">Cancelar</button>
                                 </div>
-                            </div>              
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

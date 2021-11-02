@@ -4,6 +4,8 @@ import { ClientesService } from 'src/app/servicios/clientes.service';
 import { OperacionesService } from 'src/app/servicios/operaciones.service';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { SweetService } from 'src/app/servicios/sweet.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 
 
 
@@ -42,6 +44,8 @@ export class RegistroComponent implements OnInit {
   places: any = [];
   viewplace = false;
 
+
+  
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.cargaroperaciones();
@@ -50,11 +54,63 @@ export class RegistroComponent implements OnInit {
     this.user = JSON.parse(this.user);
     this.operario = this.user.name;
   }
+  
+  form = new FormGroup({
+    cliente: new FormControl('', [
+      Validators.required,
+    ]),
+    operacion: new FormControl('', [
+      Validators.required,
+    ]),
+    vehiculo: new FormControl(''),
+    galones: new FormControl('', [
+      Validators.required,
+    ]),
+    l_inicial: new FormControl('', [
+      Validators.required,
+    ]),
+    l_final: new FormControl('', [
+      Validators.required,
+    ]),
+    valor: new FormControl('', [
+      Validators.required,
+    ]),
+    conductor: new FormControl('', [
+      Validators.required,
+    ]),
+    operario: new FormControl(this.operario, [
+      Validators.required,
+    ]),
+    observaciones: new FormControl('', [
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  submit() {
+    if (this.form.valid) {
+      this.RegistrosService.crearForm(this.form.value).subscribe((response: any) => {
+        console.log(this.form.value)
+        this.SweetService.sweet({
+          message: "Nueva cuenta creada exitosamente",
+          type: "success"
+        });
+      }, error => {
+        console.log(error);
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.form.reset();
+      });
+    }
+  }
 
   
   onChange(){
     this.viewplace = false;
-    this.places = JSON.parse(this.clienteObject).places;
+    this.places = JSON.parse(this.form.value.cliente).places;
     console.log(this.places)
     if(this.places.length != 0){
       this.viewplace = true;
