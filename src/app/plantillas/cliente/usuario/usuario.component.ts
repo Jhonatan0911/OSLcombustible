@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from 'src/app/servicios/clientes.service';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
-import Swal from 'sweetalert2';
-
+import { SweetService } from 'src/app/servicios/sweet.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-usuario',
@@ -23,12 +23,67 @@ export class UsuarioComponent implements OnInit {
   constructor(
     public ClientesService:ClientesService,
     public CuentaService: CuentaService,
+    public SweetService: SweetService,
   ) { }
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.cargar();
 
+  }
+  formEditar = new FormGroup({
+    name: new FormControl('', [
+      Validators.required,
+    ]),
+    identification: new FormControl('', [
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  formPlaca = new FormGroup({
+    placa: new FormControl('', [
+      Validators.required,
+    ]),
+    status: new FormControl(true)
+  })
+
+  submitPlaca() {
+    if (this.formPlaca.valid) {
+      this.ClientesService.agregarplaca(this.id, this.formPlaca.value).subscribe((response: any) => {
+
+        this.SweetService.sweet({
+          message: "Nueva placa agregada exitosamente",
+          type: "success"
+        });
+      }, error => {
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.formPlaca.reset();
+        this.cargar();
+      });
+    }
+  }
+  submitEditar() {
+    if (this.formEditar.valid) {
+      this.ClientesService.editar(this.id, this.formEditar.value).subscribe((response: any) => {
+
+        this.SweetService.sweet({
+          message: "Cambios realizados satisfactoriamente",
+          type: "success"
+        });
+      }, error => {
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        this.cargar();
+      });
+    }
   }
 
   cargar(){
@@ -47,52 +102,30 @@ export class UsuarioComponent implements OnInit {
     if (this.placas.length == 0) {
       this.vacioplaca = true;
     };
-  }
-  agregarplaca(placa:any){
-    this.ClientesService.agregarplaca(this.id, placa).subscribe((response: any) => {
-      console.log(response);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Nueva placa agregada satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }, error => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Ups, ha ocurrido un error. Intente nuevamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      console.log(error)
-    }, () => {
-      this.placa = " ";
+    this.formEditar.setValue({
+      name: this.name,
+      identification: this.identificacion,
+      status: true
     });
   }
-  editaruser(){
-    this.ClientesService.editar(this.name, this.identificacion, this.id).subscribe((response: any) => {
-      console.log("response",response);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Cambios realizados satisfactoriamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }, error => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Ups, ha ocurrido un error. Intente nuevamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      console.log(error)
-    }, () => {
-      this.placa = " ";
-    });
-  }
+
+  // editaruser(){
+  //   this.ClientesService.editar(this.name, this.identificacion, this.id).subscribe((response: any) => {
+  //     console.log("response",response);
+  //     this.SweetService.sweet({
+  //       message: "Cambios realizados satisfactoriamente",
+  //       type: "success"
+  //     });
+  //   }, error => {
+  //     this.SweetService.sweet({
+  //       message: "Ups, ha ocurrido un error. Intente nuevamente",
+  //       type: "error"
+  //     });
+  //     console.log(error)
+  //   }, () => {
+  //     this.placa = " ";
+  //     this.cargar();
+  //   });
+  // }
 
 }

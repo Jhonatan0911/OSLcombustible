@@ -8,8 +8,6 @@
         <span>{{cliente.name}}</span>
         <br>
         <br>
-
-  
         <button class="btn btn-dark btn-osl4 btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 20px !important;" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
   
         <button class="btn btn-osl3 btn-block"  data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(cliente)"> Ver más</button>
@@ -28,13 +26,16 @@
         </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label for="message-text" class="col-form-label">Placa:</label>
-          <input class="form-control" [(ngModel)]="placa" id="message-text">
+          <form (ngSubmit)="submitPlaca()" [formGroup]="formPlaca">
+            <label for="message-text" class="col-form-label">Placa:</label>
+            <input class="form-control" formControlName="placa" id="message-text">
+            <div class="row">
+              <div class="col-12 col-md-12">
+                <button class="btn btn-osl btn-block" type="submit" [disabled]="!formPlaca.valid">Crear</button>
+              </div>
+          </div> 
+          </form>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-osl3" (click)="agregarplaca(placa)">Agregar placa</button>
       </div>
     </div>
   </div>
@@ -48,27 +49,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="recipient-name" class="col-form-label">Cliente:</label>
-          <input type="text" [(ngModel)]="name" class="form-control" id="recipient-name">
-        </div>
-        <div class="mb-3">
-          <label for="recipient-name" class="col-form-label">identificacion:</label>
-          <input type="text" [(ngModel)]="identificacion" class="form-control" id="recipient-name">
-        </div>
-        <div class="mb-3">
-          <label for="message-text" class="col-form-label">Placas:</label>
-          <h6 *ngIf="vacioplaca == true">Este usuario no tiene placas registradas</h6>
-          <div class="card" *ngFor="let pla of this.placas">
-            <div class="card-body">
-              {{pla.placa}}
+        <form (ngSubmit)="submitEditar()" [formGroup]="formEditar">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Cliente:</label>
+            <input type="text"  formControlName="name" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">identificacion:</label>
+            <input type="text"  formControlName="identification" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Placas:</label>
+            <h6 *ngIf="vacioplaca == true">Este usuario no tiene placas registradas</h6>
+            <div class="card" *ngFor="let pla of this.placas">
+              <div class="card-body">
+                {{pla.placa}}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-osl3" (click)="editaruser()">Editar user</button>
+          <div class="row">
+            <div class="col-12 col-md-12">
+              <button class="btn btn-osl btn-block" type="submit" [disabled]="!formEditar.valid">Editar</button>
+            </div>
+          </div> 
+        </form>
+        
+        
       </div>
     </div>
   </div>

@@ -39,20 +39,12 @@ export class ClientesService {
     return this.http.post<transaccion>(this.API + 'clientes', payload);
   }
 
-  editar(nombre: any, identificacion: any, id:any){
-    let parametros = {
-      name: nombre,
-      identification: identificacion,
-      status: true,
-    }
-    return this.http.put<transaccion>(this.API+'clientes/'+id,parametros);
+  editar(id:any, payload:any){
+    return this.http.put<transaccion>(this.API+'clientes/'+id,payload);
   }
 
   agregarplaca(id: any, placa:any){
-    let parametros = {
-      placa: placa,
-    }
-    return this.http.post<transaccion>(this.API+'clientes/'+id+'/placa',parametros);
+    return this.http.post<transaccion>(this.API+'clientes/'+id+'/placa',placa);
   }
 
   carga() {
