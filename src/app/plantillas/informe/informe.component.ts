@@ -31,7 +31,6 @@ export class InformeComponent implements OnInit {
   operarioSelected: any; 
   observaciones: any;
   fecha: any; 
-
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.listar();
@@ -54,22 +53,28 @@ export class InformeComponent implements OnInit {
     const pdfDefinition: any = {
       content: [
         { 
-          text: 'Crear nuevo pdf',
           table: {
-            heights: [60, 20, 40, 30, 30, 40, 30],
+            heights: [50, 20, 40, 30, 30, 40, 30],
             widths: ['*', '*', '*'],
             body: [
               [
                 {
-                  text: 'OSlcombustible',
-                  image: 'assets/imagenes/pdf/pdflogo.jpeg', 
+                  text:[
+                    {
+                      text: 'OSL Combustibles \n', 
+                      bold: true,
+                      fontSize: 22,
+                    }
+                  ], 
                   style: 'tableHeader', 
                   colSpan: 2,
-                  alignment: 'center'
+                  alignment: 'center',
+                  bold: true,
                 },{}, 
                 {
                   text: 'Fecha: ',
                   table: {
+                    widths: [152],
                     body: [
                       ['Fecha:'],
                       [' '+this.fecha],
@@ -89,12 +94,28 @@ export class InformeComponent implements OnInit {
               ],
               [
                 {
-                  text: 'Placa: \n'+ this.vehiculoSelected,
+                  text:[
+                    {
+                      text: 'Placa: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.vehiculoSelected,
+                    }
+                  ], 
                   colSpan: 1,
                   alignment: 'center'
                 }, 
                 { 
-                  text: 'Cliente:\n'+ this.clienteSelected, 
+                  text:[
+                    {
+                      text: 'Cliente: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.clienteSelected,
+                    }
+                  ],
                   style: 'tableHeader',
                   colSpan: 2,
                   alignment: 'center'
@@ -102,35 +123,92 @@ export class InformeComponent implements OnInit {
               ],
               [
                 {
-                  text: 'No de galones:\n'+ this.galoneSelected,
+                  text:[
+                    {
+                      text: 'No. de galones: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.galoneSelected,
+                    }
+                  ],
                   colSpan: 2,
+
                 },{}, 
                 {
-                  text: 'Lectura Inicial:\n'+ this.l_inicialSelected,
+                  text:[
+                    {
+                      text: 'Lectura Inicial: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.l_inicialSelected,
+                    }
+                  ],
                 },
               ],
               [
                 {
-                  text: 'Valor en $:\n'+ this.valorSelected,
+                  text:[
+                    {
+                      text: 'Valor en $: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.valorSelected,
+                    }
+                  ],
                   colSpan: 2,
                 },{}, 
                 {
-                  text: 'Lectura Final:\n'+ this.l_FinalSelected,
+                  text:[
+                    {
+                      text: 'Lectura Final: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.l_FinalSelected,
+                    }
+                  ],
                 },
               ],
               [
                 {
-                  text: 'Observaciones:\n'+ this.observaciones,
+                  text:[
+                    {
+                      text: 'Observaciones:: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.observaciones,
+                    }
+                  ],
                   colSpan: 3,
                 },{}, {},
               ],
               [
                 {
-                  text: 'Conductor:\n'+ this.conductorSelected,
+                  text:[
+                    {
+                      text: 'Conductor: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.conductorSelected,
+                    }
+                  ],
                   colSpan: 1,
                   width: 200,
                 },{
-                  text: 'Operario:\n'+ this.operarioSelected,
+                  text:[
+                    {
+                      text: 'Operario: \n', 
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.operarioSelected,
+                    }
+                  ],
                   colSpan: 1,
                 }, {},
               ],
