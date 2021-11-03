@@ -3,6 +3,7 @@ import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { RegistrosService } from 'src/app/servicios/registros.service';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as moment from 'moment';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -31,6 +32,7 @@ export class InformeComponent implements OnInit {
   operarioSelected: any; 
   observaciones: any;
   fecha: any; 
+
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.listar();
@@ -46,6 +48,20 @@ export class InformeComponent implements OnInit {
     this.operarioSelected = registro.data.operario;
     this.observaciones = registro.data.observaciones;
     this.fecha = registro.data.fecha;
+
+    //formato a la fecha con momentjs
+    let now = moment(this.fecha);
+    this.fecha = now.format('LLL');
+
+    //formato a el precio
+    const formatter = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      minimumFractionDigits: 0
+    })
+    this.valorSelected = formatter.format(this.valorSelected);
+
+    //crear pdf
     this.createPdf();
   }
 
