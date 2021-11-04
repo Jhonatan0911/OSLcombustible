@@ -1,33 +1,39 @@
 <div class="container mt-5">
   <h2><strong>Clientes</strong></h2>
   <br>
-  <div class="row">
-    <div class="card cardOp col-6 col-md-5" *ngFor="let cliente of this.clientes">
-      <div class="card-body mx-auto center">
-        <strong class="h6" style="font-weight: 700;">Cliente:</strong>
-        <span>{{cliente.name}}</span>
-        <br>
-        <br>
-        <button class="btn btn-dark btn-osl4 btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-right: 20px !important;" (click)="cargadatos(cliente)"> Añadir vehiculo </button>
-  
-        <button class="btn btn-osl3 btn-block"  data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(cliente)"> Ver más</button>
-  
-      </div>
-    </div>
-    <div class="col-6 col-md-2" style="right:0;"> 
-      <br><br>
-      <button class="btn btn-dark btn-osl2" routerLink="/home">Volver</button>
-    </div>
+  <table class="table" *ngIf="this.clientes.length != 0">
+    <thead>
+      <tr>
+        <th scope="col">Cliente</th>
+        <th scope="col">Identificacion</th>
+        <th scope="col">Placas</th>
+        <th scope="col">Añadir placa</th>
+        <th scope="col">Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cliente of clientes">
+          <td>{{cliente.name}}</td>
+          <td>{{cliente.identification}}</td>
+          <td><button class="btn btn-dark btn-osl4 btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal3" (click)="cargadatos(cliente)"> ver </button></td>
+          <td><button class="btn btn-dark btn-osl4 btn-block" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="cargadatos(cliente)"> Añadir </button></td>
+          <td><button class="btn btn-osl3 btn-block"  data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(cliente)"> Editar </button></td>
+        </tr>
+    </tbody>
+  </table>
+  <div class="col-6 col-md-2" >
+    <br><br>
+    <button class="btn btn-dark btn-osl2" routerLink="/home">Volver</button>
   </div>
-  
+</div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{clientedata.name}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{clientedata.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <div class="modal-body">
         <div class="mb-3">
           <form (ngSubmit)="submitPlaca()" [formGroup]="formPlaca">
@@ -37,13 +43,36 @@
               <div class="col-12 col-md-12">
                 <button class="btn btn-osl btn-block" type="submit" [disabled]="!formPlaca.valid">Crear</button>
               </div>
-          </div> 
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">{{clientedata.name}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="message-text" class="col-form-label">Placas:</label>
+          <h6 *ngIf="vacioplaca == true">Este usuario no tiene placas registradas</h6>
+          <div class="card" *ngFor="let pla of this.placas">
+            <div class="card-body">
+              {{pla.placa}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
   <div class="modal-dialog">
@@ -62,26 +91,13 @@
             <label for="recipient-name" class="col-form-label">identificacion:</label>
             <input type="text"  formControlName="identification" class="form-control" id="recipient-name">
           </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Placas:</label>
-            <h6 *ngIf="vacioplaca == true">Este usuario no tiene placas registradas</h6>
-            <div class="card" *ngFor="let pla of this.placas">
-              <div class="card-body">
-                {{pla.placa}}
-              </div>
-            </div>
-          </div>
           <div class="row">
             <div class="col-12 col-md-12">
               <button class="btn btn-osl btn-block" type="submit" [disabled]="!formEditar.valid">Editar</button>
             </div>
-          </div> 
+          </div>
         </form>
-        
-        
       </div>
     </div>
   </div>
-</div>
-    
 </div>

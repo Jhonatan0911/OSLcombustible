@@ -22,16 +22,16 @@ export class InformeComponent implements OnInit {
   ) { }
 
   registros: any = [];
-  vehiculoSelected: any; 
-  clienteSelected: any; 
-  galoneSelected: any; 
-  l_inicialSelected: any; 
+  vehiculoSelected: any;
+  clienteSelected: any;
+  galoneSelected: any;
+  l_inicialSelected: any;
   l_FinalSelected: any;
   valorSelected: any;
-  conductorSelected: any; 
-  operarioSelected: any; 
+  conductorSelected: any;
+  operarioSelected: any;
   observaciones: any;
-  fecha: any; 
+  fecha: any;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
@@ -51,6 +51,7 @@ export class InformeComponent implements OnInit {
 
     //formato a la fecha con momentjs
     let now = moment(this.fecha);
+    now.locale('es')
     this.fecha = now.format('LLL');
 
     //formato a el precio
@@ -68,7 +69,7 @@ export class InformeComponent implements OnInit {
   createPdf(){
     const pdfDefinition: any = {
       content: [
-        { 
+        {
           table: {
             heights: [50, 20, 40, 30, 30, 40, 30],
             widths: ['*', '*', '*'],
@@ -77,16 +78,16 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'OSL Combustibles \n', 
+                      text: 'OSL Combustibles \n',
                       bold: true,
                       fontSize: 22,
                     }
-                  ], 
-                  style: 'tableHeader', 
+                  ],
+                  style: 'tableHeader',
                   colSpan: 2,
                   alignment: 'center',
                   bold: true,
-                },{}, 
+                },{},
                 {
                   text: 'Fecha: ',
                   table: {
@@ -112,20 +113,20 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'Placa: \n', 
+                      text: 'Placa: \n',
                       bold: true
                     },
                     {
                       text: ''+ this.vehiculoSelected,
                     }
-                  ], 
+                  ],
                   colSpan: 1,
                   alignment: 'center'
-                }, 
-                { 
+                },
+                {
                   text:[
                     {
-                      text: 'Cliente: \n', 
+                      text: 'Cliente: \n',
                       bold: true
                     },
                     {
@@ -141,7 +142,7 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'No. de galones: \n', 
+                      text: 'No. de galones: \n',
                       bold: true
                     },
                     {
@@ -150,11 +151,11 @@ export class InformeComponent implements OnInit {
                   ],
                   colSpan: 2,
 
-                },{}, 
+                },{},
                 {
                   text:[
                     {
-                      text: 'Lectura Inicial: \n', 
+                      text: 'Lectura Inicial: \n',
                       bold: true
                     },
                     {
@@ -167,7 +168,7 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'Valor en $: \n', 
+                      text: 'Valor en $: \n',
                       bold: true
                     },
                     {
@@ -175,11 +176,11 @@ export class InformeComponent implements OnInit {
                     }
                   ],
                   colSpan: 2,
-                },{}, 
+                },{},
                 {
                   text:[
                     {
-                      text: 'Lectura Final: \n', 
+                      text: 'Lectura Final: \n',
                       bold: true
                     },
                     {
@@ -192,7 +193,7 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'Observaciones:: \n', 
+                      text: 'Observaciones:: \n',
                       bold: true
                     },
                     {
@@ -206,7 +207,7 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'Conductor: \n', 
+                      text: 'Conductor: \n',
                       bold: true
                     },
                     {
@@ -218,7 +219,7 @@ export class InformeComponent implements OnInit {
                 },{
                   text:[
                     {
-                      text: 'Operario: \n', 
+                      text: 'Operario: \n',
                       bold: true
                     },
                     {
@@ -228,10 +229,10 @@ export class InformeComponent implements OnInit {
                   colSpan: 1,
                 }, {},
               ],
-    
+
             ]
           }
-          
+
         }
       ]
     }
@@ -244,7 +245,7 @@ export class InformeComponent implements OnInit {
       this.registros = response;
       console.log(this.registros);
     })
-   
+
   }
 
 }

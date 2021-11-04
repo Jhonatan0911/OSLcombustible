@@ -4,7 +4,7 @@
             <div class="card cardosl">
                 <div class="card-body py-5">
                     <div class="px-2">
-                        <p class="h3 font-weight-bold text-center titleosl">Crear registro</p>
+                        <p class="h3 font-weight-bold text-center titleosl">Crear Tiquete</p>
                         <br>
                         <p class="text-center text-muted">Completa todos los datos para crear un registro de forma satisfactoria</p>
                         <hr>
@@ -18,12 +18,12 @@
                                         </select>
                                     </div>
                                     <div class="col-6 col-md-6">
-                                        <p>Operacion<b class="text-danger">*</b></p>
+                                        <p>Operacion</p>
                                         <select class="form-select" formControlName="operacion" >
                                             <option *ngFor="let op of this.operacion" value="{{op | json}}">{{op.name}}</option>
                                         </select>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="form-group" *ngIf="viewplace">
                                     <p>Vehiculo <b class="text-danger">*</b></p>
                                     <select class="form-select" formControlName="vehiculo">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <p>Valor <b class="text-danger">*</b></p>
+                                    <p>Valor</p>
                                     <input type="number" formControlName="valor" class="form-control" placeholder="Ej: $200.000">
                                 </div>
                                 <div class="row">
@@ -59,9 +59,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <p>Observaciones<b class="text-danger">*</b></p>
+                                    <p>Observaciones</p>
                                     <textarea class="form-control" formControlName="observaciones">
-                                        
+
                                     </textarea>
                                 </div>
                             </div>

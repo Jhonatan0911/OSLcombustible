@@ -1,6 +1,6 @@
 <div class="container mt-5">
 
-    <h2><strong>Registros</strong></h2>
+    <h2><strong>Informes</strong></h2>
     <br><br><br>
     <div class="mx-auto" style="text-align: center;">
       <h3 *ngIf="this.registros.length == 0"><strong>No tiene registros</strong></h3>
@@ -8,7 +8,6 @@
     <table class="table" *ngIf="this.registros.length != 0">
         <thead>
           <tr>
-            <th scope="col">id</th>
             <th scope="col">Cliente</th>
             <th scope="col">Vehiculo</th>
             <th scope="col">Operacion</th>
@@ -25,7 +24,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let registro of registros">
-              <td>{{registro._id}}</td>
               <td>{{registro.data.cliente.name}}</td>
               <td>{{registro.data.vehiculo}}</td>
               <td>{{registro.data.operacion.name}}</td>
@@ -42,7 +40,7 @@
             </tr>
         </tbody>
       </table>
-      <div class="col-6 col-md-2"> 
+      <div class="col-6 col-md-2">
         <br><br>
         <button class="btn btn-dark btn-osl2" routerLink="/home">Volver</button>
       </div>
