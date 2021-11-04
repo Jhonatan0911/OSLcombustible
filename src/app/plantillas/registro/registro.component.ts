@@ -5,8 +5,11 @@ import { OperacionesService } from 'src/app/servicios/operaciones.service';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { SweetService } from 'src/app/servicios/sweet.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-
+import Swal from 'sweetalert2';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as moment from 'moment';
+(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 
 @Component({
@@ -39,6 +42,7 @@ export class RegistroComponent implements OnInit {
   operacionObject: any = "";
   vehiculoObject: any = "";
   placesObject: any = "";
+  fecha: any;
 
 
   places: any = [];
@@ -98,10 +102,28 @@ export class RegistroComponent implements OnInit {
       this.form.value.operacion = JSON.parse(this.form.value.operacion);
       this.RegistrosService.crearForm(this.form.value).subscribe((response: any) => {
         console.log(this.form.value)
-        this.SweetService.sweet({
-          message: "Nuevo registro creado exitosamente",
-          type: "success"
-        });
+        Swal.fire({
+          title: "Nuevo registro creado exitosamente",
+          icon: 'success',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: "Imprimir",
+          confirmButtonColor: '#B3404A',
+          cancelButtonColor: '#3085d6',
+          denyButtonColor: '#282C34',
+          denyButtonText: "Ver tickets",
+          cancelButtonText: "Crear otro",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            let now = moment(this.fecha);
+            now.locale('es')
+            this.fecha = now.format('LLL');
+            this.cliente= this.form.value.cliente.name;
+            this.createPdf();
+          } else if (result.isDenied) {
+            window.location.href = '/informe';
+          }
+        })
       }, error => {
         console.log(error);
         this.SweetService.sweet({
@@ -109,7 +131,6 @@ export class RegistroComponent implements OnInit {
           type: "error"
         });
       }, () => {
-        this.form.reset();
       });
     }
   }
@@ -147,33 +168,179 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  crear(cliente: any, vehiculo: any, operacion: any, galones: any, l_inicial: any, l_final: any, valor: any, conductor: any, operario: any, Observaciones: any,) {
+  createPdf(){
+    const pdfDefinition: any = {
+      content: [
+        {
+          table: {
+            heights: [50, 20, 40, 30, 30, 40, 30],
+            widths: ['*', '*', '*'],
+            body: [
+              [
+                {
+                  text:[
+                    {
+                      text: 'OSL Combustibles \n',
+                      bold: true,
+                      fontSize: 22,
+                    }
+                  ],
+                  style: 'tableHeader',
+                  colSpan: 2,
+                  alignment: 'center',
+                  bold: true,
+                },{},
+                {
+                  text: 'Fecha: ',
+                  table: {
+                    widths: [152],
+                    body: [
+                      ['Fecha:'],
+                      [' '+this.fecha],
+                    ]
+                  },
+                  style: 'tableHeader',
+                  alignment: 'center'
+                },
+              ],
+              [
+                {
+                  text: 'OPERADOR DE SERVICIOS LOGISTICOS S.A.S    OSL COMBUSTIBLE',
+                  style: 'tableHeader',
+                  colSpan: 3,
+                  alignment: 'center'
+                }, {},
+              ],
+              [
+                {
+                  text:[
+                    {
+                      text: 'Placa: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.vehiculo,
+                    }
+                  ],
+                  colSpan: 1,
+                  alignment: 'center'
+                },
+                {
+                  text:[
+                    {
+                      text: 'Cliente: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.cliente,
+                    }
+                  ],
+                  style: 'tableHeader',
+                  colSpan: 2,
+                  alignment: 'center'
+                }, {}
+              ],
+              [
+                {
+                  text:[
+                    {
+                      text: 'No. de galones: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.galones,
+                    }
+                  ],
+                  colSpan: 2,
 
-    cliente = JSON.parse(cliente);
-    operacion = JSON.parse(operacion);
+                },{},
+                {
+                  text:[
+                    {
+                      text: 'Lectura Inicial: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.l_inicial,
+                    }
+                  ],
+                },
+              ],
+              [
+                {
+                  text:[
+                    {
+                      text: 'Valor en $: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.valor,
+                    }
+                  ],
+                  colSpan: 2,
+                },{},
+                {
+                  text:[
+                    {
+                      text: 'Lectura Final: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.l_final,
+                    }
+                  ],
+                },
+              ],
+              [
+                {
+                  text:[
+                    {
+                      text: 'Observaciones:: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.observaciones,
+                    }
+                  ],
+                  colSpan: 3,
+                },{}, {},
+              ],
+              [
+                {
+                  text:[
+                    {
+                      text: 'Conductor: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.conductor,
+                    }
+                  ],
+                  colSpan: 1,
+                  width: 200,
+                },{
+                  text:[
+                    {
+                      text: 'Operario: \n',
+                      bold: true
+                    },
+                    {
+                      text: ''+ this.form.value.operario,
+                    }
+                  ],
+                  colSpan: 1,
+                }, {},
+              ],
 
-    this.RegistrosService.crear(cliente, vehiculo, operacion, galones, l_inicial, l_final, valor, conductor, operario, Observaciones).subscribe((response: any) => {
-      console.log(response);
-      this.SweetService.sweet({
-        message: "Registro creado exitosamente",
-        type: "success"
-      });
-    }, error => {
-      this.SweetService.sweet({
-        message: "Ups, ha ocurrido un error. Intente nuevamente",
-        type: "error"
-      });
-      console.log(error)
-    }, () => {
-      this.galones = "";
-      this.l_inicial = "";
-      this.l_final = "";
-      this.valor = "";
-      this.conductor = "";
-      this.operario = "";
-      this.Observaciones = "";
-    });
+            ]
+          }
 
+        }
+      ]
+    }
+    const pdf = pdfMake.createPdf(pdfDefinition);
+    pdf.open();
+    this.form.reset();
   }
 
 }
