@@ -1,0 +1,20 @@
+.btn-pdf{
+  margin: 10px 0 0;
+  border-radius: 20px;
+  padding: 8px 22px;
+  color: #fff;
+  font-weight: 400;
+  width: 100% !important;
+  background: #AA0A00;
+  border-color: #AA0A00;
+}
+.btn-excel{
+  margin: 10px 0 0;
+  border-radius: 20px;
+  padding: 8px 22px;
+  color: #fff;
+  font-weight: 400;
+  width: 100% !important;
+  background: #006B36;
+  border-color: #006B36;
+}

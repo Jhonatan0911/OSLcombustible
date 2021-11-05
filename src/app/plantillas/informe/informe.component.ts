@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CuentaService } from 'src/app/servicios/cuenta.service';
 import { RegistrosService } from 'src/app/servicios/registros.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OperacionesService } from 'src/app/servicios/operaciones.service';
+import { SweetService } from 'src/app/servicios/sweet.service';
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
+import { Xliff2 } from '@angular/compiler';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
-
-
 
 @Component({
   selector: 'app-informe',
@@ -15,44 +18,115 @@ import * as moment from 'moment';
   styleUrls: ['./informe.component.css']
 })
 export class InformeComponent implements OnInit {
+  form = new FormGroup({
+    cliente: new FormControl('', [
+      Validators.required,
+    ]),
+    operacion: new FormControl('', []),
+    vehiculo: new FormControl(''),
+    galones: new FormControl('', [
+      Validators.required,
+    ]),
+    l_inicial: new FormControl('', [
+      Validators.required,
+    ]),
+    l_final: new FormControl('', [
+      Validators.required,
+    ]),
+    valor: new FormControl('', []),
+    conductor: new FormControl('', [
+      Validators.required,
+    ]),
+    operario: new FormControl('', [
+      Validators.required,
+    ]),
+    observaciones: new FormControl('', []),
+    status: new FormControl(true)
+  })
 
+  fileName = 'TablaInforme.xlsx';
+  operacion: any;
   constructor(
     public CuentaService: CuentaService,
     public RegistrosService: RegistrosService,
+    public OperacionesService: OperacionesService,
+    public SweetService: SweetService,
   ) { }
 
   registros: any = [];
-  vehiculoSelected: any;
-  clienteSelected: any;
-  galoneSelected: any;
-  l_inicialSelected: any;
-  l_FinalSelected: any;
-  valorSelected: any;
-  conductorSelected: any;
-  operarioSelected: any;
-  observaciones: any;
-  fecha: any;
+  id:any;
+  userSelected: any;
+  operacionSelected: any;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.listar();
+    this.cargaroperaciones();
   }
   cargadatos(registro){
-    this.vehiculoSelected = registro.data.vehiculo;
-    this.clienteSelected  = registro.data.cliente.name;
-    this.galoneSelected  = registro.data.galones;
-    this.l_inicialSelected = registro.data.l_inicial
-    this.l_FinalSelected = registro.data.l_final;
-    this.valorSelected = registro.data.valor;
-    this.conductorSelected = registro.data.conductor;
-    this.operarioSelected = registro.data.operario;
-    this.observaciones = registro.data.observaciones;
-    this.fecha = registro.data.fecha;
+    console.log(registro);
+    this.id = registro._id;
+    this.userSelected = registro.data.cliente.name;
+    this.operacionSelected = registro.data.operacion;
+    this.form.setValue({
+      cliente: registro.data.cliente,
+      operacion: '',
+      vehiculo: registro.data.vehiculo,
+      galones: registro.data.galones,
+      l_inicial: registro.data.l_inicial,
+      l_final:  registro.data.l_final,
+      valor: registro.data.valor,
+      conductor: registro.data.conductor,
+      operario: registro.data.operario,
+      observaciones: registro.data.observaciones,
+      status: true
+    });
+  }
+  submit() {
+    if (this.form.valid) {
+      if(this.form.value.operacion != ''){
+        this.form.value.operacion = JSON.parse(this.form.value.operacion);
+      }else{
+        this.form.value.operacion = this.operacionSelected;
+      }
+      this.RegistrosService.editarForm(this.form.value, this.id).subscribe((response: any) => {
+        console.log(this.form.value)
+        this.SweetService.sweet({
+          message: "cambios guardados exitosamente",
+          type: "success"
+        });
+      }, error => {
+        console.log(error);
+        this.SweetService.sweet({
+          message: "Ups, ha ocurrido un error. Intente nuevamente",
+          type: "error"
+        });
+      }, () => {
+        window.location.reload();
+      });
+    }
+  }
+  exportexcel() {
+    let table = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, this.fileName);
+  }
+  cargaroperaciones() {
+    this.OperacionesService.listar().subscribe((response: any) => {
+      this.operacion = response;
+    })
+  }
+
+  createPdf(registro, index){
+    registro.data.id = index;
     //formato a la fecha con momentjs
-    let now = moment(this.fecha);
+    let now = moment(registro.data.fecha);
     now.locale('es')
-    this.fecha = now.format('LLL');
+    registro.data.fecha = now.format('LLL');
 
     //formato a el precio
     const formatter = new Intl.NumberFormat('es-CO', {
@@ -60,13 +134,8 @@ export class InformeComponent implements OnInit {
       currency: 'COP',
       minimumFractionDigits: 0
     })
-    this.valorSelected = formatter.format(this.valorSelected);
+    registro.data.valor = formatter.format(registro.data.valor);
 
-    //crear pdf
-    this.createPdf();
-  }
-
-  createPdf(){
     const pdfDefinition: any = {
       content: [
         {
@@ -78,7 +147,7 @@ export class InformeComponent implements OnInit {
                 {
                   text:[
                     {
-                      text: 'OSL Combustibles \n',
+                      text: 'OSL Combustibles \n Recibo #CB-00'+ registro.data.id,
                       bold: true,
                       fontSize: 22,
                     }
@@ -94,7 +163,7 @@ export class InformeComponent implements OnInit {
                     widths: [152],
                     body: [
                       ['Fecha:'],
-                      [' '+this.fecha],
+                      [' '+registro.data.fecha],
                     ]
                   },
                   style: 'tableHeader',
@@ -117,7 +186,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.vehiculoSelected,
+                      text: ''+ registro.data.vehiculo,
                     }
                   ],
                   colSpan: 1,
@@ -130,7 +199,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.clienteSelected,
+                      text: ''+ registro.data.cliente.name,
                     }
                   ],
                   style: 'tableHeader',
@@ -146,7 +215,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.galoneSelected,
+                      text: ''+ registro.data.galones,
                     }
                   ],
                   colSpan: 2,
@@ -159,7 +228,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.l_inicialSelected,
+                      text: ''+ registro.data.l_inicial,
                     }
                   ],
                 },
@@ -172,7 +241,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.valorSelected,
+                      text: ''+ registro.data.valor,
                     }
                   ],
                   colSpan: 2,
@@ -184,7 +253,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.l_FinalSelected,
+                      text: ''+ registro.data.l_final,
                     }
                   ],
                 },
@@ -197,7 +266,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.observaciones,
+                      text: ''+  registro.data.observaciones,
                     }
                   ],
                   colSpan: 3,
@@ -211,7 +280,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.conductorSelected,
+                      text: ''+ registro.data.conductor,
                     }
                   ],
                   colSpan: 1,
@@ -223,7 +292,7 @@ export class InformeComponent implements OnInit {
                       bold: true
                     },
                     {
-                      text: ''+ this.operarioSelected,
+                      text: ''+ registro.data.operario,
                     }
                   ],
                   colSpan: 1,

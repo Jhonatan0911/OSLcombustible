@@ -5,44 +5,47 @@ body{
     background-color: #F8F8F8 !important;
     font-size: 14px;
 }
-  
+
 p {
     margin: 0 !important;
 }
-  
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, p {
     margin-bottom: 0px !important;
 }
-  
-  
+
+
 /* BOOTSTRAP */
-  
+
 .btn {
     border-radius: 8px !important;
 }
-  
+
 .navbar-light .navbar-nav .nav-link {
     color: #000;
 }
-  
+
 .form-control {
     background-color: #ffffff;
 }
-  
+
 .form-control:focus {
     border: 3px solid #c7c3c3 !important;
     background-color: rgb(255, 255, 255);
 }
-  
+
 .card {
     border: none;
     border-radius: 14px;
 }
-  
+
 .btn-light {
     background-color: rgba(0,0,0,0.2) !important;
 }
-  
+.bold{
+  font-weight: bold !important;
+}
+
 /* PROPIOS  */
 .card-osl{
     margin: 150px 270px;

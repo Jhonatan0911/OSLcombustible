@@ -5,7 +5,7 @@
     <div class="mx-auto" style="text-align: center;">
       <h3 *ngIf="this.registros.length == 0"><strong>No tiene registros</strong></h3>
     </div>
-    <table class="table" *ngIf="this.registros.length != 0">
+    <table class="table" *ngIf="this.registros.length != 0" id="excel-table">
         <thead>
           <tr>
             <th scope="col">Cliente</th>
@@ -19,11 +19,11 @@
             <th scope="col">Operario</th>
             <th scope="col">Observaciones</th>
             <th scope="col">Descarga</th>
-
+            <th scope="col">Editar</th>
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let registro of registros">
+            <tr *ngFor="let registro of registros; index as index">
               <td>{{registro.data.cliente.name}}</td>
               <td>{{registro.data.vehiculo}}</td>
               <td>{{registro.data.operacion.name}}</td>
@@ -35,7 +35,101 @@
               <td>{{registro.data.operario}}</td>
               <td>{{registro.data.observaciones}}</td>
               <td>
-                <button class="btn btn-dark btn-osl2" (click)="cargadatos(registro)"><i class="fas fa-file-pdf"></i></button>
+                <button class="btn btn-dark btn-osl2" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-download"></i></button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title bold" id="exampleModalLabel">Descargar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <div class="row">
+                            <div class="col" style="text-align: center;">
+                              <p class="h6 bold">PDF</p>
+                              <button class="btn btn-dark btn-pdf" (click)="createPdf(registro, index+1)"><i class="fas fa-file-pdf"></i></button>
+                            </div>
+                            <div Class="col" style="text-align: center;">
+                              <p class="h6 bold">Excel</p>
+                              <button class="btn btn-dark btn-excel" (click)="exportexcel()"><i class="fas fa-file-excel"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title bold" id="exampleModalLabel2">Cliente {{userSelected}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="mb-3">
+                          <form (ngSubmit)="submit()" [formGroup]="form">
+                            <div>
+                                <div class="form-group">
+                                  <p>Operacion</p>
+                                  <select class="form-select" formControlName="operacion" >
+                                    <option *ngFor="let op of this.operacion" value="{{op | json}}">{{op.name}}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                    <p>Vehiculo <b class="text-danger">*</b></p>
+                                    <input type="text" formControlName="vehiculo" class="form-control" placeholder="Ej: ABC-123">
+                                </div>
+                                <div class="form-group">
+                                    <p>No. de galones <b class="text-danger">*</b></p>
+                                    <input type="number" formControlName="galones" class="form-control" placeholder="Ej: 38">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
+                                        <p>Lectura Inicial<b class="text-danger">*</b></p>
+                                        <input type="number" formControlName="l_inicial" class="form-control" placeholder="Ej: 39581,2">
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <p>Lectura Final <b class="text-danger">*</b></p>
+                                        <input type="number" formControlName="l_final" class="form-control" placeholder="Ej: 39619,4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Valor</p>
+                                    <input type="number" formControlName="valor" class="form-control" placeholder="Ej: $200.000">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-6">
+                                        <p>Conductor<b class="text-danger">*</b></p>
+                                        <input type="text" formControlName="conductor" class="form-control" placeholder="Ej: Jorge">
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <p>Operario <b class="text-danger">*</b></p>
+                                        <input type="text" formControlName="operario" class="form-control" placeholder="Ej: Fernando">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <p>Observaciones</p>
+                                    <textarea class="form-control" formControlName="observaciones">
+
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <button class="btn btn-osl btn-block" type="submit" [disabled]="!form.valid">Editar</button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-dark btn-osl2" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(registro)"><i class="fas fa-edit"></i></button>
               </td>
             </tr>
         </tbody>

@@ -13,7 +13,7 @@ export class RegistrosService {
   constructor(
     private api: ApiService,
     private http: HttpClient,
-  ) { 
+  ) {
     this.API = this.api.cargaAPI();
     this.id = localStorage.getItem('datosUser');
   }
@@ -60,6 +60,13 @@ export class RegistrosService {
       status: true
     }
     return this.http.post<transaccion>(this.API +'registros', body);
+  }
+  editarForm(payload: any, id:any) {
+    let body = {
+      data: payload,
+      status: true
+    }
+    return this.http.put<transaccion>(this.API +'registros/'+id, body);
   }
 }
 export class transaccion {
