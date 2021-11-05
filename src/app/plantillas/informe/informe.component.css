@@ -18,3 +18,18 @@
   background: #006B36;
   border-color: #006B36;
 }
+.btn-download{
+  background: #B3404A !important;
+  border-color: #B3404A !important;
+  color: #fff;
+  padding: 8px 2px !important;
+}
+.botones {
+  text-align: right !important;
+}
+.filtro {
+  margin: 10px 0 0;
+  width: 100% !important;
+  padding: 8px 22px;
+
+}

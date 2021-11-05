@@ -9,6 +9,10 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx';
 import { Xliff2 } from '@angular/compiler';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { borderTopRightRadius } from 'html2canvas/dist/types/css/property-descriptors/border-radius';
 
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
@@ -57,12 +61,41 @@ export class InformeComponent implements OnInit {
   id:any;
   userSelected: any;
   operacionSelected: any;
+  fech_ini: any;
+  fech_fin: any;
+  filtro = false;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
     this.listar();
     this.cargaroperaciones();
   }
+
+  downloadPDF() {
+    // Extraemos el
+    const DATA = document.getElementById('excel-table');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 3
+    };
+    html2canvas(DATA, options).then((canvas) => {
+
+      const img = canvas.toDataURL('image/PNG');
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${new Date().toISOString()}_informe.pdf`);
+    });
+  }
+
+
+
   cargadatos(registro){
     console.log(registro);
     this.id = registro._id;
@@ -106,8 +139,17 @@ export class InformeComponent implements OnInit {
       });
     }
   }
+  filtrar(){
+    console.log("registros",this.registros)
+    let busca = this.registros.filter(n => n.data.fecha > this.fech_ini && n.data.fecha < this.fech_fin);
+    console.log(busca);
+    this.registros = [];
+    this.registros = busca;
+    this.filtro = true;
+  }
+
   exportexcel() {
-    let table = document.getElementById('excel-table');
+    let table = document.getElementById('tabledownload');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
 
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -308,11 +350,30 @@ export class InformeComponent implements OnInit {
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
   }
+  quitar(){
+    this.fech_ini = '';
+    this.fech_fin = '';
+    this.filtro = false;
+    this.listar();
+  }
 
   listar(){
     this.RegistrosService.listar().subscribe((response: any) => {
       this.registros = response;
-      console.log(this.registros);
+      this.registros.forEach(element => {
+        const formatter = new Intl.NumberFormat('es-CO', {
+          style: 'currency',
+          currency: 'COP',
+          minimumFractionDigits: 0
+        })
+        element.data.valor = formatter.format(element.data.valor);
+
+
+        element.data.fecha  = element.data.fecha.toString();
+        let fecha =  element.data.fecha.split('T', 2);
+        element.data.fecha = fecha[0];
+      });
+
     })
 
   }

@@ -1,9 +1,28 @@
 <div class="container mt-5">
-
     <h2><strong>Informes</strong></h2>
-    <br><br><br>
+    <div class="row botones my-3">
+      <div class="col">
+      </div>
+      <div class="col-2">
+        <input type="date" class="filtro" [(ngModel)]="fech_ini" *ngIf="filtro == false" placeholder="Desde el día">
+      </div>
+      <div class="col-2">
+        <input type="date" class="filtro" [(ngModel)]="fech_fin" *ngIf="filtro == false" placeholder="Hasta el día">
+      </div>
+      <div class="col-1" *ngIf="filtro == false">
+        <button class="btn btn-osl2 btn-download" (click)="filtrar()">Filtrar</button>
+      </div>
+      <div class="col-1" *ngIf="filtro == true">
+        <button class="btn btn-osl2 btn-download" (click)="quitar()"><i class="fas fa-undo-alt"></i> Todos</button>
+      </div>
+      <div class="col-1">
+        <button class="btn btn-dark btn-excel" (click)="exportexcel()"><i class="fas fa-file-excel"></i></button>
+      </div>
+      <br>
+    </div>
+    <br><br>
     <div class="mx-auto" style="text-align: center;">
-      <h3 *ngIf="this.registros.length == 0"><strong>No tiene registros</strong></h3>
+      <h3 *ngIf="this.registros.length == 0"><strong>No se han encontrado registros</strong></h3>
     </div>
     <table class="table" *ngIf="this.registros.length != 0" id="excel-table">
         <thead>
@@ -11,15 +30,15 @@
             <th scope="col">Cliente</th>
             <th scope="col">Vehiculo</th>
             <th scope="col">Operacion</th>
-            <th scope="col">No. de galones</th>
+            <th scope="col">Galones</th>
             <th scope="col">Lectura inicial</th>
             <th scope="col">Lectura final</th>
             <th scope="col">Valor</th>
             <th scope="col">Conductor</th>
             <th scope="col">Operario</th>
             <th scope="col">Observaciones</th>
-            <th scope="col">Descarga</th>
-            <th scope="col">Editar</th>
+            <th class="d-print-none" scope="col">Ticket</th>
+            <th class="d-print-none" scope="col">Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -34,32 +53,8 @@
               <td>{{registro.data.conductor}}</td>
               <td>{{registro.data.operario}}</td>
               <td>{{registro.data.observaciones}}</td>
-              <td>
-                <button class="btn btn-dark btn-osl2" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-download"></i></button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title bold" id="exampleModalLabel">Descargar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="mb-3">
-                          <div class="row">
-                            <div class="col" style="text-align: center;">
-                              <p class="h6 bold">PDF</p>
-                              <button class="btn btn-dark btn-pdf" (click)="createPdf(registro, index+1)"><i class="fas fa-file-pdf"></i></button>
-                            </div>
-                            <div Class="col" style="text-align: center;">
-                              <p class="h6 bold">Excel</p>
-                              <button class="btn btn-dark btn-excel" (click)="exportexcel()"><i class="fas fa-file-excel"></i></button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <td class="d-print-none">
+                <button class="btn btn-dark btn-osl2" (click)="createPdf(registro, index+1)"><i class="fas fa-file-pdf"></i></button>
                 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -128,7 +123,7 @@
                   </div>
                 </div>
               </td>
-              <td>
+              <td class="d-print-none">
                 <button class="btn btn-dark btn-osl2" data-bs-toggle="modal" data-bs-target="#exampleModal2" (click)="cargadatos(registro)"><i class="fas fa-edit"></i></button>
               </td>
             </tr>
@@ -138,4 +133,63 @@
         <br><br>
         <button class="btn btn-dark btn-osl2" routerLink="/home">Volver</button>
       </div>
+</div>
+<div class="d-none d-md-none">
+<div>
+  <table class="table" *ngIf="this.registros.length != 0" id="tabledownload">
+    <thead>
+      <tr>
+        <th scope="col">Cliente</th>
+        <th scope="col">Vehiculo</th>
+        <th scope="col">Operacion</th>
+        <th scope="col">No. de galones</th>
+        <th scope="col">Lectura inicial</th>
+        <th scope="col">Lectura final</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Conductor</th>
+        <th scope="col">Operario</th>
+        <th scope="col">Observaciones</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let registro of registros; index as index">
+          <td>{{registro.data.cliente.name}}</td>
+          <td>{{registro.data.vehiculo}}</td>
+          <td>{{registro.data.operacion.name}}</td>
+          <td>{{registro.data.galones}}</td>
+          <td>{{registro.data.l_inicial}}</td>
+          <td>{{registro.data.l_final}}</td>
+          <td>{{registro.data.valor}}</td>
+          <td>{{registro.data.conductor}}</td>
+          <td>{{registro.data.operario}}</td>
+          <td>{{registro.data.observaciones}}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title bold" id="exampleModalLabel">Descargar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col" style="text-align: center;">
+              <p class="h6 bold">PDF</p>
+              <button class="btn btn-dark btn-pdf" (click)="downloadPDF()"><i class="fas fa-file-pdf"></i></button>
+            </div>
+            <div Class="col" style="text-align: center;">
+              <p class="h6 bold">Excel</p>
+              <button class="btn btn-dark btn-excel" (click)="exportexcel()"><i class="fas fa-file-excel"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
