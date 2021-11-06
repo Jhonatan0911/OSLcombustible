@@ -43,6 +43,7 @@ export class RegistroComponent implements OnInit {
   vehiculoObject: any = "";
   placesObject: any = "";
   fecha: any;
+  hora: any;
 
 
   places: any = [];
@@ -117,7 +118,8 @@ export class RegistroComponent implements OnInit {
           if (result.isConfirmed) {
             let now = moment(this.fecha);
             now.locale('es')
-            this.fecha = now.format('LLL');
+            this.fecha = now.format('LL');
+            this.hora = now.format('LT');
             this.cliente= this.form.value.cliente.name;
             this.createPdf();
           } else if (result.isDenied) {
@@ -170,171 +172,176 @@ export class RegistroComponent implements OnInit {
 
   createPdf(){
     const pdfDefinition: any = {
+      pageSize: 'C8',
+      pageMargins: [5, 0, 5, 0],
       content: [
         {
-          table: {
-            heights: [50, 20, 40, 30, 30, 40, 30],
-            widths: ['*', '*', '*'],
-            body: [
-              [
-                {
-                  text:[
-                    {
-                      text: 'OSL Combustibles \n',
-                      bold: true,
-                      fontSize: 22,
-                    }
-                  ],
-                  style: 'tableHeader',
-                  colSpan: 2,
-                  alignment: 'center',
-                  bold: true,
-                },{},
-                {
-                  text: 'Fecha: ',
-                  table: {
-                    widths: [152],
-                    body: [
-                      ['Fecha:'],
-                      [' '+this.fecha],
-                    ]
-                  },
-                  style: 'tableHeader',
-                  alignment: 'center'
-                },
-              ],
-              [
-                {
-                  text: 'OPERADOR DE SERVICIOS LOGISTICOS S.A.S    OSL COMBUSTIBLE',
-                  style: 'tableHeader',
-                  colSpan: 3,
-                  alignment: 'center'
-                }, {},
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Placa: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.vehiculo,
-                    }
-                  ],
-                  colSpan: 1,
-                  alignment: 'center'
-                },
-                {
-                  text:[
-                    {
-                      text: 'Cliente: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.cliente,
-                    }
-                  ],
-                  style: 'tableHeader',
-                  colSpan: 2,
-                  alignment: 'center'
-                }, {}
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'No. de galones: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.galones,
-                    }
-                  ],
-                  colSpan: 2,
-
-                },{},
-                {
-                  text:[
-                    {
-                      text: 'Lectura Inicial: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.l_inicial,
-                    }
-                  ],
-                },
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Valor en $: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.valor,
-                    }
-                  ],
-                  colSpan: 2,
-                },{},
-                {
-                  text:[
-                    {
-                      text: 'Lectura Final: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.l_final,
-                    }
-                  ],
-                },
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Observaciones:: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.observaciones,
-                    }
-                  ],
-                  colSpan: 3,
-                },{}, {},
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Conductor: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.conductor,
-                    }
-                  ],
-                  colSpan: 1,
-                  width: 200,
-                },{
-                  text:[
-                    {
-                      text: 'Operario: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ this.form.value.operario,
-                    }
-                  ],
-                  colSpan: 1,
-                }, {},
-              ],
-
-            ]
-          }
-
+          text:[
+            {
+              text: 'Sistema OSL \nCombustibles',
+              bold: true,
+              style: 'header',
+			        alignment: 'center'
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Fecha: ' ,
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+this.fecha,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Hora:',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+this.hora,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Cliente: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+this.cliente ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Placa: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.vehiculo,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: '#Galones: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.galones ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'L. Inicial: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.l_inicial,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'L. Final: ' ,
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.l_final,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Valor: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.valor,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Observaciones:\n',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+  this.form.value.observaciones,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Conductor: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ this.form.value.conductor,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Operario: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ''+ this.form.value.operario,
+              fontSize: 10,
+            }
+          ],
         }
       ]
     }
