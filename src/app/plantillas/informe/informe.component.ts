@@ -64,6 +64,7 @@ export class InformeComponent implements OnInit {
   fech_ini: any;
   fech_fin: any;
   filtro = false;
+  hora:any;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
@@ -172,16 +173,11 @@ export class InformeComponent implements OnInit {
   createPdf(registro, index){
     registro.data.id = index;
     //formato a la fecha con momentjs
-    let now = moment(registro.data.fecha);
-    now.locale('es')
-    registro.data.fecha = now.format('LL');
-    let hora = now.format('LT')
-
 
 
     const pdfDefinition: any = {
       pageSize: 'C8',
-      pageMargins: [5, 0, 5, 0],
+      pageMargins: [18, 0, 18, 0],
       content: [
         {
           text:[
@@ -223,7 +219,7 @@ export class InformeComponent implements OnInit {
               bold: true,
             },
             {
-              text: ' '+hora,
+              text: ' '+this.hora,
               fontSize: 10,
             }
           ],
@@ -253,7 +249,7 @@ export class InformeComponent implements OnInit {
               fontSize: 10,
             },
             {
-              text: '\n --------------------------------------------',
+              text: '\n ------------------------------------',
               fontSize: 10,
               bold: true,
             }
@@ -310,7 +306,7 @@ export class InformeComponent implements OnInit {
               fontSize: 10,
             },
             {
-              text: '\n --------------------------------------------',
+              text: '\n ------------------------------------',
               fontSize: 10,
               bold: true,
             }
@@ -328,7 +324,7 @@ export class InformeComponent implements OnInit {
               fontSize: 10,
             },
             {
-              text: '\n --------------------------------------------',
+              text: '\n ------------------------------------',
               fontSize: 10,
               bold: true,
             }
@@ -382,7 +378,10 @@ export class InformeComponent implements OnInit {
           minimumFractionDigits: 0
         })
         element.data.valor = formatter.format(element.data.valor);
-
+        let now = moment(element.data.fecha);
+        now.locale('es')
+        element.data.fecha = now.format('L');
+        this.hora = now.format('LT')
       });
 
     })
