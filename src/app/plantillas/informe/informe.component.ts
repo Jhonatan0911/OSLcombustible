@@ -58,13 +58,13 @@ export class InformeComponent implements OnInit {
   ) { }
 
   registros: any = [];
-  id:any;
+  id: any;
   userSelected: any;
   operacionSelected: any;
   fech_ini: any;
   fech_fin: any;
   filtro = false;
-  hora:any;
+  hora: any;
 
   ngOnInit(): void {
     this.CuentaService.Verifylogin();
@@ -97,7 +97,7 @@ export class InformeComponent implements OnInit {
 
 
 
-  cargadatos(registro){
+  cargadatos(registro) {
     console.log(registro);
     this.id = registro._id;
     this.userSelected = registro.data.cliente.name;
@@ -108,7 +108,7 @@ export class InformeComponent implements OnInit {
       vehiculo: registro.data.vehiculo,
       galones: registro.data.galones,
       l_inicial: registro.data.l_inicial,
-      l_final:  registro.data.l_final,
+      l_final: registro.data.l_final,
       valor: registro.data.valor,
       conductor: registro.data.conductor,
       operario: registro.data.operario,
@@ -118,9 +118,9 @@ export class InformeComponent implements OnInit {
   }
   submit() {
     if (this.form.valid) {
-      if(this.form.value.operacion != ''){
+      if (this.form.value.operacion != '') {
         this.form.value.operacion = JSON.parse(this.form.value.operacion);
-      }else{
+      } else {
         this.form.value.operacion = this.operacionSelected;
       }
       this.RegistrosService.editarForm(this.form.value, this.id).subscribe((response: any) => {
@@ -140,14 +140,14 @@ export class InformeComponent implements OnInit {
       });
     }
   }
-  filtrar(){
+  filtrar() {
     this.registros.forEach(element => {
       console.log(element.data.fecha)
       // element.data.fecha  = element.data.fecha.toString();
       // let fecha =  element.data.fecha.split('T', 2);
       // element.data.fecha = fecha[0];
     });
-    console.log("registros",this.registros)
+    console.log("registros", this.registros)
     let busca = this.registros.filter(n => n.data.fecha >= this.fech_ini && n.data.fecha <= this.fech_fin);
     console.log(busca);
     this.registros = [];
@@ -170,82 +170,86 @@ export class InformeComponent implements OnInit {
     })
   }
 
-  createPdf(registro, index){
+  createPdf(registro, index) {
     registro.data.id = index;
     //formato a la fecha con momentjs
 
 
     const pdfDefinition: any = {
-      pageSize: 'C8',
+      // pageSize: 'C8',
+      pageSize: {
+        width: 165,
+        height: 600
+      },
       pageMargins: [18, 0, 18, 0],
       content: [
         {
-          text:[
+          text: [
             {
               text: 'Sistema OSL \nCombustibles',
               bold: true,
               style: 'header',
-			        alignment: 'center'
+              alignment: 'center'
             }
           ],
         },
         {
-          text:[
+          text: [
             {
-              text: '\nRECIBO #CB-00'+ registro.data.id ,
+              text: '\nRECIBO #CB-00' + registro.data.id,
               bold: true,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
-              text: 'Fecha: ' ,
+              text: 'Fecha: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+registro.data.fecha ,
+              text: ' ' + registro.data.fecha,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Hora:',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+this.hora,
+              text: ' ' + this.hora,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Cliente: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+registro.data.cliente.name ,
+              text: ' ' + registro.data.cliente.name,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Placa: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ registro.data.vehiculo,
+              text: ' ' + registro.data.vehiculo,
               fontSize: 10,
             },
             {
@@ -256,53 +260,53 @@ export class InformeComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: '#Galones: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ registro.data.galones ,
+              text: ' ' + registro.data.galones,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'L. Inicial: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+registro.data.l_inicial ,
+              text: ' ' + registro.data.l_inicial,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
-              text: 'L. Final: ' ,
+              text: 'L. Final: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ registro.data.l_final,
+              text: ' ' + registro.data.l_final,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Valor: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ registro.data.valor ,
+              text: ' ' + registro.data.valor,
               fontSize: 10,
             },
             {
@@ -313,14 +317,14 @@ export class InformeComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Observaciones:\n',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+  registro.data.observaciones ,
+              text: ' ' + registro.data.observaciones,
               fontSize: 10,
             },
             {
@@ -331,27 +335,27 @@ export class InformeComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Conductor: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ registro.data.conductor,
+              text: ' ' + registro.data.conductor,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Operario: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+registro.data.operario ,
+              text: ' ' + registro.data.operario,
               fontSize: 10,
             }
           ],
@@ -361,14 +365,14 @@ export class InformeComponent implements OnInit {
     const pdf = pdfMake.createPdf(pdfDefinition);
     pdf.open();
   }
-  quitar(){
+  quitar() {
     this.fech_ini = '';
     this.fech_fin = '';
     this.filtro = false;
     this.listar();
   }
 
-  listar(){
+  listar() {
     this.RegistrosService.listar().subscribe((response: any) => {
       this.registros = response;
       this.registros.forEach(element => {
