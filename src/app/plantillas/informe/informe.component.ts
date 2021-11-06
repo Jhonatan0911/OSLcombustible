@@ -140,8 +140,14 @@ export class InformeComponent implements OnInit {
     }
   }
   filtrar(){
+    this.registros.forEach(element => {
+      console.log(element.data.fecha)
+      // element.data.fecha  = element.data.fecha.toString();
+      // let fecha =  element.data.fecha.split('T', 2);
+      // element.data.fecha = fecha[0];
+    });
     console.log("registros",this.registros)
-    let busca = this.registros.filter(n => n.data.fecha > this.fech_ini && n.data.fecha < this.fech_fin);
+    let busca = this.registros.filter(n => n.data.fecha >= this.fech_ini && n.data.fecha <= this.fech_fin);
     console.log(busca);
     this.registros = [];
     this.registros = busca;
@@ -170,13 +176,7 @@ export class InformeComponent implements OnInit {
     now.locale('es')
     registro.data.fecha = now.format('LLL');
 
-    //formato a el precio
-    const formatter = new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      minimumFractionDigits: 0
-    })
-    registro.data.valor = formatter.format(registro.data.valor);
+
 
     const pdfDefinition: any = {
       content: [
@@ -368,10 +368,6 @@ export class InformeComponent implements OnInit {
         })
         element.data.valor = formatter.format(element.data.valor);
 
-
-        element.data.fecha  = element.data.fecha.toString();
-        let fecha =  element.data.fecha.split('T', 2);
-        element.data.fecha = fecha[0];
       });
 
     })

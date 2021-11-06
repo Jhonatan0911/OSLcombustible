@@ -70,21 +70,21 @@ p {
     margin: 10px 0 0;
     border-radius: 20px;
     padding: 8px 22px;
-    color: #fff;
-    background-color: #B3404A;
+    color: #fff !important;
+    background-color: #B3404A !important;
     font-weight: 400;
     width: 100% !important;
 }
 .btn-osl3{
     border-radius: 20px;
     padding: 8px 22px;
-    color: #fff;
-    background-color: #B3404A;
+    color: #fff !important;
+    background-color: #B3404A !important;
     font-weight: 400;
 }
 .btn-osl3:hover{
-    color: #fff;
-    background-color: #831e26;
+    color: #fff !important;
+    background-color: #831e26 !important;
 }
 
 .btn-osl:hover{
@@ -95,14 +95,14 @@ p {
     margin: 10px 0 0;
     border-radius: 20px;
     padding: 8px 22px;
-    color: #fff;
+    color: #fff !important;
     font-weight: 400;
     width: 100% !important;
 }
 
 .btn-osl2:hover{
     color: #fff;
-    background-color: #000000;
+    background-color: #000000 !important;
 }
 .btn-osl4{
     border-radius: 20px;
