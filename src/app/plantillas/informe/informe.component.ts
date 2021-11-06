@@ -174,176 +174,191 @@ export class InformeComponent implements OnInit {
     //formato a la fecha con momentjs
     let now = moment(registro.data.fecha);
     now.locale('es')
-    registro.data.fecha = now.format('LLL');
+    registro.data.fecha = now.format('LL');
+    let hora = now.format('LT')
 
 
 
     const pdfDefinition: any = {
+      pageSize: 'C8',
+      pageMargins: [5, 0, 5, 0],
       content: [
         {
-          table: {
-            heights: [50, 20, 40, 30, 30, 40, 30],
-            widths: ['*', '*', '*'],
-            body: [
-              [
-                {
-                  text:[
-                    {
-                      text: 'OSL Combustibles \n Recibo #CB-00'+ registro.data.id,
-                      bold: true,
-                      fontSize: 22,
-                    }
-                  ],
-                  style: 'tableHeader',
-                  colSpan: 2,
-                  alignment: 'center',
-                  bold: true,
-                },{},
-                {
-                  text: 'Fecha: ',
-                  table: {
-                    widths: [152],
-                    body: [
-                      ['Fecha:'],
-                      [' '+registro.data.fecha],
-                    ]
-                  },
-                  style: 'tableHeader',
-                  alignment: 'center'
-                },
-              ],
-              [
-                {
-                  text: 'OPERADOR DE SERVICIOS LOGISTICOS S.A.S    OSL COMBUSTIBLE',
-                  style: 'tableHeader',
-                  colSpan: 3,
-                  alignment: 'center'
-                }, {},
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Placa: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.vehiculo,
-                    }
-                  ],
-                  colSpan: 1,
-                  alignment: 'center'
-                },
-                {
-                  text:[
-                    {
-                      text: 'Cliente: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.cliente.name,
-                    }
-                  ],
-                  style: 'tableHeader',
-                  colSpan: 2,
-                  alignment: 'center'
-                }, {}
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'No. de galones: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.galones,
-                    }
-                  ],
-                  colSpan: 2,
-
-                },{},
-                {
-                  text:[
-                    {
-                      text: 'Lectura Inicial: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.l_inicial,
-                    }
-                  ],
-                },
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Valor en $: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.valor,
-                    }
-                  ],
-                  colSpan: 2,
-                },{},
-                {
-                  text:[
-                    {
-                      text: 'Lectura Final: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.l_final,
-                    }
-                  ],
-                },
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Observaciones:: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+  registro.data.observaciones,
-                    }
-                  ],
-                  colSpan: 3,
-                },{}, {},
-              ],
-              [
-                {
-                  text:[
-                    {
-                      text: 'Conductor: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.conductor,
-                    }
-                  ],
-                  colSpan: 1,
-                  width: 200,
-                },{
-                  text:[
-                    {
-                      text: 'Operario: \n',
-                      bold: true
-                    },
-                    {
-                      text: ''+ registro.data.operario,
-                    }
-                  ],
-                  colSpan: 1,
-                }, {},
-              ],
-
-            ]
-          }
-
+          text:[
+            {
+              text: 'Sistema OSL \nCombustibles',
+              bold: true,
+              style: 'header',
+			        alignment: 'center'
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: '\nRECIBO #CB-00'+ registro.data.id ,
+              bold: true,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Fecha: ' ,
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+registro.data.fecha ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Hora:',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+hora,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Cliente: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+registro.data.cliente.name ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Placa: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ registro.data.vehiculo,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: '#Galones: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ registro.data.galones ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'L. Inicial: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+registro.data.l_inicial ,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'L. Final: ' ,
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ registro.data.l_final,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Valor: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ registro.data.valor ,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Observaciones:\n',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+  registro.data.observaciones ,
+              fontSize: 10,
+            },
+            {
+              text: '\n --------------------------------------------',
+              fontSize: 10,
+              bold: true,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Conductor: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+ registro.data.conductor,
+              fontSize: 10,
+            }
+          ],
+        },
+        {
+          text:[
+            {
+              text: 'Operario: ',
+              fontSize: 10,
+              bold: true,
+            },
+            {
+              text: ' '+registro.data.operario ,
+              fontSize: 10,
+            }
+          ],
         }
       ]
     }
