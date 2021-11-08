@@ -141,11 +141,18 @@ export class InformeComponent implements OnInit {
     }
   }
   filtrar() {
+    let now = moment(this.fech_ini);
+    let now2 = moment(this.fech_fin);
+    now.locale('es')
+    now2.locale('es')
+    this.fech_ini = now.format('L');
+    this.fech_fin = now2.format('L');
+
+
+    console.log(this.fech_ini);
+    console.log(this.fech_fin);
     this.registros.forEach(element => {
       console.log(element.data.fecha)
-      // element.data.fecha  = element.data.fecha.toString();
-      // let fecha =  element.data.fecha.split('T', 2);
-      // element.data.fecha = fecha[0];
     });
     console.log("registros", this.registros)
     let busca = this.registros.filter(n => n.data.fecha >= this.fech_ini && n.data.fecha <= this.fech_fin);
