@@ -67,7 +67,6 @@ export class InformeComponent implements OnInit {
   hora: any;
 
   ngOnInit(): void {
-    this.CuentaService.Verifylogin();
     this.listar();
     this.cargaroperaciones();
   }

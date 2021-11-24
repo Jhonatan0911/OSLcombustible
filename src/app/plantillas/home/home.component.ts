@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   user: any;
 
   ngOnInit(): void {
-    this.CuentaService.Verifylogin();
     this.user = localStorage.getItem('datosUser');
     this.user = JSON.parse(this.user);
 

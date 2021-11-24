@@ -16,6 +16,8 @@ import { RegistroComponent } from './plantillas/registro/registro.component';
 import { UsuarioComponent } from './plantillas/cliente/usuario/usuario.component';
 import { UserComponent } from './plantillas/cliente/placa/user.component';
 
+//Guards
+import { LoginGuard } from './servicios/guards/login.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +39,9 @@ import { UserComponent } from './plantillas/cliente/placa/user.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

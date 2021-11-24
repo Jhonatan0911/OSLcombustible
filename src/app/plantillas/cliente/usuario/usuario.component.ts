@@ -16,7 +16,7 @@ export class UsuarioComponent implements OnInit {
   placa:any = "";
   id: any = "";
   identificacion: any = "";
-  name: any = ""; 
+  name: any = "";
   placas:any =[];
   vacioplaca= false;
 
@@ -27,7 +27,6 @@ export class UsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.CuentaService.Verifylogin();
     this.cargar();
 
   }
