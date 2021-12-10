@@ -53,7 +53,7 @@ export class RegistroComponent implements OnInit {
     cliente: new FormControl('', [
       Validators.required,
     ]),
-    operacion: new FormControl('', []),
+    operacion: new FormControl(''),
     vehiculo: new FormControl(''),
     galones: new FormControl('', [
       Validators.required,
@@ -91,7 +91,7 @@ export class RegistroComponent implements OnInit {
       l_final: '',
       valor: '',
       conductor: '',
-      operario:  this.operario,
+      operario: this.operario,
       observaciones: '',
       status: true
     });
@@ -100,7 +100,7 @@ export class RegistroComponent implements OnInit {
   submit() {
     if (this.form.valid) {
       this.form.value.cliente = JSON.parse(this.form.value.cliente);
-      this.form.value.operacion = JSON.parse(this.form.value.operacion);
+      this.form.value.operacion = this.form.value.operacion ? JSON.parse(this.form.value.operacion) : null;
       this.RegistrosService.crearForm(this.form.value).subscribe((response: any) => {
         console.log(this.form.value)
         Swal.fire({
@@ -120,7 +120,7 @@ export class RegistroComponent implements OnInit {
             now.locale('es')
             this.fecha = now.format('LL');
             this.hora = now.format('LT');
-            this.cliente= this.form.value.cliente.name;
+            this.cliente = this.form.value.cliente.name;
             this.createPdf();
           } else if (result.isDenied) {
             window.location.href = '/informe';
@@ -138,18 +138,18 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  onChange(){
+  onChange() {
     this.viewplace = false;
     this.places = JSON.parse(this.form.value.cliente).places;
     console.log(this.places)
-    if(this.places.length != 0){
+    if (this.places.length != 0) {
       this.viewplace = true;
-    }else{
+    } else {
       this.SweetService.sweet({
         message: "Este usuario no tiene vehiculos registrados",
         type: "error"
       });
-      this.clienteObject= "";
+      this.clienteObject = "";
 
 
     }
@@ -161,8 +161,8 @@ export class RegistroComponent implements OnInit {
   }
   cargaclientes() {
     this.ClientesService.listar().subscribe((response: any) => {
-      response.forEach((element:any) => {
-        if(element.status == true && element.places.length != 0){
+      response.forEach((element: any) => {
+        if (element.status == true && element.places.length != 0) {
           this.cliente.push(element);
         }
       });
@@ -170,69 +170,69 @@ export class RegistroComponent implements OnInit {
   }
 
 
-  createPdf(){
+  createPdf() {
     const pdfDefinition: any = {
       pageSize: 'C8',
       pageMargins: [5, 0, 5, 0],
       content: [
         {
-          text:[
+          text: [
             {
               text: 'Sistema OSL \nCombustibles',
               bold: true,
               style: 'header',
-			        alignment: 'center'
+              alignment: 'center'
             }
           ],
         },
         {
-          text:[
+          text: [
             {
-              text: 'Fecha: ' ,
+              text: 'Fecha: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+this.fecha,
+              text: ' ' + this.fecha,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Hora:',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+this.hora,
+              text: ' ' + this.hora,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Cliente: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+this.cliente ,
+              text: ' ' + this.cliente,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Placa: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.vehiculo,
+              text: ' ' + this.form.value.vehiculo,
               fontSize: 10,
             },
             {
@@ -243,53 +243,53 @@ export class RegistroComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: '#Galones: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.galones ,
+              text: ' ' + this.form.value.galones,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'L. Inicial: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.l_inicial,
+              text: ' ' + this.form.value.l_inicial,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
-              text: 'L. Final: ' ,
+              text: 'L. Final: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.l_final,
+              text: ' ' + this.form.value.l_final,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Valor: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.valor,
+              text: ' ' + this.form.value.valor,
               fontSize: 10,
             },
             {
@@ -300,14 +300,14 @@ export class RegistroComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Observaciones:\n',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+  this.form.value.observaciones,
+              text: ' ' + this.form.value.observaciones,
               fontSize: 10,
             },
             {
@@ -318,27 +318,27 @@ export class RegistroComponent implements OnInit {
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Conductor: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ' '+ this.form.value.conductor,
+              text: ' ' + this.form.value.conductor,
               fontSize: 10,
             }
           ],
         },
         {
-          text:[
+          text: [
             {
               text: 'Operario: ',
               fontSize: 10,
               bold: true,
             },
             {
-              text: ''+ this.form.value.operario,
+              text: '' + this.form.value.operario,
               fontSize: 10,
             }
           ],
