@@ -99,8 +99,10 @@ export class RegistroComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
+
+      console.log(this.form.value.operacion)
       this.form.value.cliente = JSON.parse(this.form.value.cliente);
-      this.form.value.operacion = this.form.value.operacion ? JSON.parse(this.form.value.operacion) : null;
+      // this.form.value.operacion = this.form.value.operacion ? JSON.parse(this.form.value.operacion) : JSON.parse(empty);
 
 
       this.RegistrosService.crearForm(this.form.value).subscribe((response: any) => {
