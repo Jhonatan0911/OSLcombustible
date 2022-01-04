@@ -18,6 +18,8 @@ import { UserComponent } from './plantillas/cliente/placa/user.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+//Guards
+import { LoginGuard } from './servicios/guards/login.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { environment } from '../environments/environment';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [
+    LoginGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

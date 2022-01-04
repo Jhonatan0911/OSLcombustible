@@ -53,32 +53,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.CuentaService.Verifylogin();
   }
-
-  // crear(){
-  //   this.ClientesService.crear(this.nombre, this.identificacion).subscribe((response: any) => {
-  //     console.log("console",response);
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       icon: 'success',
-  //       title: 'Nuevo cliente creado satisfactoriamente',
-  //       showConfirmButton: false,
-  //       timer: 1500
-  //     })
-  //   }, error => {
-  //     Swal.fire({
-  //       position: 'top-end',
-  //       icon: 'error',
-  //       title: 'Ups, ha ocurrido un error. Intente nuevamente',
-  //       showConfirmButton: false,
-  //       timer: 1500
-  //     })
-  //     console.log(error)
-  //   }, () => {
-  //     this.nombre = " ";
-  //     this.identificacion = " ";
-  //   });
-  // }
 
 }

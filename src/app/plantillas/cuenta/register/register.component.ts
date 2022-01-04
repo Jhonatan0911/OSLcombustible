@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   datosUser: any = [];
   nameselected: any = "";
   emailselected: any = "";
-  id: any= "";
+  id: any = "";
 
   form = new FormGroup({
     name: new FormControl('', [
@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
           type: "success"
         });
       }, error => {
+        console.log(error)
         this.SweetService.sweet({
           message: "Ups, ha ocurrido un error. Intente nuevamente",
           type: "error"
@@ -94,11 +95,11 @@ export class RegisterComponent implements OnInit {
     this.CuentaService.Verifylogin();
     this.cargarUSer();
   }
-  crear(){
+  crear() {
     this.CuentaService.cuenta(this.name, this.email, this.password).subscribe((response) => {
       let datos: any = [];
       datos = response;
-      console.log("holap",datos)
+      console.log("holap", datos)
       if (datos.status == 404) {
         this.password = " ";
         this.email = " ";
@@ -127,13 +128,13 @@ export class RegisterComponent implements OnInit {
       this.email = "";
     });
   }
-  cargarUSer(){
+  cargarUSer() {
     this.CuentaService.listarUser().subscribe((response: any) => {
       this.usuarios = response;
       console.log(response);
     })
   }
-  cargadatos(user:any){
+  cargadatos(user: any) {
     this.datosUser = user;
     this.nameselected = this.datosUser.name;
     this.emailselected = this.datosUser.email;

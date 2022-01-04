@@ -85,7 +85,6 @@ export class OperacionComponent implements OnInit {
   nameselected: any = "";
 
   ngOnInit(): void {
-    this.CuentaService.Verifylogin();
     this.cargaroperaciones();
   }
 
