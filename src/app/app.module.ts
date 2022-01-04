@@ -15,6 +15,8 @@ import { OperacionComponent } from './plantillas/operacion/operacion.component';
 import { RegistroComponent } from './plantillas/registro/registro.component';
 import { UsuarioComponent } from './plantillas/cliente/usuario/usuario.component';
 import { UserComponent } from './plantillas/cliente/placa/user.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,13 @@ import { UserComponent } from './plantillas/cliente/placa/user.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
