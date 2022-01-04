@@ -69,6 +69,23 @@ export class InformeComponent implements OnInit {
   ngOnInit(): void {
     this.listar();
     this.cargaroperaciones();
+
+    setTimeout(() => {
+      console.log("registros", this.registros)
+
+      this.registros.sort(function (a, b) {
+        if (a.data.fecha > b.data.fecha) {
+          return 1;
+        }
+        if (a.data.fecha < b.data.fecha) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+
+    }, 3000);
+
   }
 
   downloadPDF() {
